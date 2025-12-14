@@ -8,19 +8,15 @@ import java.awt.image.BufferedImage;
 public class Tile {
 
     private final BufferedImage image;
-    private final int type;
-
-    public static final int NORMAL = 0;
-    public static final int BLOCKED = 1;
+    private TileType type;
 
     /**
      * @param image subImage zo sandTiles
      * @param type  typ 0 alebo 1
      */
-    public Tile(BufferedImage image, int type) {
+    public Tile(BufferedImage image, TileType type) {
         this.image = image;
         this.type = type;
-
     }
 
     /**
@@ -33,7 +29,7 @@ public class Tile {
     /**
      * @return vrati typ tilu
      */
-    public int getType() {
+    public TileType getType() {
         return this.type;
     }
 

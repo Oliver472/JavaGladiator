@@ -1,6 +1,7 @@
 package mapObjects;
 
 import grid.LevelGrid;
+import grid.TileType;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -69,7 +70,6 @@ public abstract class MapObject {
         this.tileMap = tileMap;
 
         mapObjHraniceVisible = false;
-
 
         this.dx = 0;
         this.dy = 4.5;
@@ -311,16 +311,14 @@ public abstract class MapObject {
 
 
         //check ci je pravy rec na urovni blocked tilu
-        if (tileMap.getType(rowOfRightRec, colOfRightRec) == 1) {
-
+        if (tileMap.getType(rowOfRightRec, colOfRightRec) == TileType.BLOCKED) {
             this.blockedRight = true;
             this.dx = 0;
         } else {
             this.blockedRight = false;
         }
         //check ci je horny rec na urovni blocked tilu
-        if (tileMap.getType(rowOfTopRec, colOfTopRec) == 1) {
-
+        if (tileMap.getType(rowOfTopRec, colOfTopRec) == TileType.BLOCKED) {
             this.blockedUp = true;
             this.dy = 0;
             this.ySpeed = 0;
@@ -329,7 +327,7 @@ public abstract class MapObject {
         }
 
         //check ci je lavy rec na urovni blocked tilu
-        if (tileMap.getType(rowOfLeftRec, colOfLeftRec) == 1) {
+        if (tileMap.getType(rowOfLeftRec, colOfLeftRec) == TileType.BLOCKED) {
 
             this.blockedLeft = true;
             this.dx = 0;
@@ -338,7 +336,7 @@ public abstract class MapObject {
         }
 
         //check ci je spodny rec na urovni blocked tilu
-        if (tileMap.getType(rowOfBottomRec, colOfBottomRec) == 1) {
+        if (tileMap.getType(rowOfBottomRec, colOfBottomRec) == TileType.BLOCKED) {
             if (!jumping) {
                 this.dy = 0;
             }
@@ -403,14 +401,12 @@ public abstract class MapObject {
      */
     public abstract void update();
 
-
     /**
      * Vykreslenie
      *
      * @param g tvar
      */
     public void draw(Graphics2D g) {
-
         if (mapObjHraniceVisible) {
             //hlavny rec
             g.draw(this.r1);
@@ -424,9 +420,5 @@ public abstract class MapObject {
             //spodny rec -||- nizsie
             g.draw(this.bottomRec);
         }
-
-
     }
-
-
 }

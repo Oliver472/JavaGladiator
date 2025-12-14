@@ -63,8 +63,6 @@ public class LevelGrid {
         this.pocetRiadkovNaVykresl = GamePanel.HEIGHT / velkostPolicka + 2;
         this.pocetStlpcovNaVykresl = GamePanel.WIDTH / velkostPolicka + 2;
         this.tween = 1;
-
-
     }
 
 
@@ -94,16 +92,15 @@ public class LevelGrid {
     public void loadTiles(String fileName) {
         try {
             this.tileset = ImageIO.read(new File(fileName));
-
             this.numTilesAcross = this.tileset.getWidth() / velkostPolicka;
             this.policka = new Tile[2][numTilesAcross];
 
             BufferedImage subImage;
             for (int i = 0; i < numTilesAcross; i++) {
                 subImage = tileset.getSubimage(i * this.velkostPolicka, 0, this.velkostPolicka, this.velkostPolicka);
-                this.policka[0][i] = new Tile(subImage, Tile.NORMAL);
+                this.policka[0][i] = new Tile(subImage, TileType.NORMAL);
                 subImage = tileset.getSubimage(i * this.velkostPolicka, this.velkostPolicka, this.velkostPolicka, this.velkostPolicka);
-                this.policka[1][i] = new Tile(subImage, Tile.BLOCKED);
+                this.policka[1][i] = new Tile(subImage, TileType.BLOCKED);
 
             }
         } catch (IOException e) {
@@ -198,9 +195,7 @@ public class LevelGrid {
      * @param stlpec stlpec
      * @return typ tilu
      */
-    public int getType(int riadok, int stlpec) {
-
-
+    public TileType getType(int riadok, int stlpec) {
         if ((riadok >= 0) && (stlpec >= 0)) {
             int cr = mapa[riadok][stlpec];
 
@@ -209,10 +204,7 @@ public class LevelGrid {
 
             return this.policka[r][c].getType();
         }
-
-        return 0;
-
-
+        return null;
     }
 
 

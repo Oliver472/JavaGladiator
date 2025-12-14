@@ -24,8 +24,6 @@ public class Level1 extends Level {
      */
     public Level1(ScreensManager manager) {
         super(manager, "images/sandBg.png", 370, 95 );
-
-
         init();
     }
 

@@ -9,10 +9,7 @@ import java.awt.event.KeyEvent;
  * Trieda Player predstavuje hraca ktoreho ovlada pouzivatel
  */
 public class Player extends Entity {
-
-
     private int health;
-
     private int invcTime;
     private int pom;
     private int timer;
@@ -26,16 +23,11 @@ public class Player extends Entity {
      */
     public Player(LevelGrid tileMap) {
         super(200, 100, tileMap);
-
         this.invcTime = 0;
         this.health = 3;
-
         this.pom = 0;
         this.timer = 0;
-
         super.loadSprites("Gladiator");
-
-
     }
 
     /**
@@ -55,7 +47,6 @@ public class Player extends Entity {
      * @param k tlacidlo
      */
     public void keyPressed(int k) {
-
         if (k == KeyEvent.VK_RIGHT) {
             if (!super.isBlockedRight()) {
                 super.setDx(2);
@@ -83,8 +74,6 @@ public class Player extends Entity {
                 super.setMoving(true);
             }
         }
-
-
     }
 
     /**
@@ -96,7 +85,6 @@ public class Player extends Entity {
      */
     public void keyReleased(int k) {
         if (k == KeyEvent.VK_RIGHT) {
-
             super.setDx(0);
             super.setMoving(false);
         }
@@ -104,8 +92,6 @@ public class Player extends Entity {
             super.setDx(0);
             super.setMoving(false);
         }
-
-
     }
 
 
@@ -113,10 +99,7 @@ public class Player extends Entity {
      * Update
      */
     @Override
-    public void update() {
-
-    }
-
+    public void update() {}
 
     /**
      * Vykreslenie
@@ -146,9 +129,7 @@ public class Player extends Entity {
         if (this.pom > 3) {
             this.pom = 0;
         }
-
         this.timer++;
-
     }
 
     /**
@@ -176,15 +157,13 @@ public class Player extends Entity {
      * nastavi zivoty na 3
      */
     public void setFullHealth() {
-
         this.health = 3;
-
     }
 
     /**
      * @return vrati cas pocas ktoreho nie je mozne hraca zasiahnut
      */
     public int getInvcTime() {
-        return invcTime;
+        return this.invcTime;
     }
 }

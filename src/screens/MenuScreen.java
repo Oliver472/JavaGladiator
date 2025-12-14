@@ -22,13 +22,11 @@ public class MenuScreen extends Screen {
     private BufferedImage logo;
     private int selection;
 
-
     private final String[] optionsPressed = {
         "playBtnPressed",
         "optionsBtnPressed",
         "quitBtnPressed",
     };
-
 
     /**
      * Konstruktor vytvori pozadie, tlacidla a logo
@@ -38,10 +36,7 @@ public class MenuScreen extends Screen {
     public MenuScreen(ScreensManager manager) {
         super(manager);
         this.selection = 0;
-
-
         this.init();
-
     }
 
 
@@ -50,7 +45,6 @@ public class MenuScreen extends Screen {
      */
     @Override
     public void init() {
-
         this.label = new MenuLabel("images/label.png");
         this.pozadie = new Pozadie("images/bgColloseum2.png");
         try {
@@ -75,10 +69,7 @@ public class MenuScreen extends Screen {
      */
     @Override
     public void draw(Graphics2D graphics) {
-
-
         this.pozadie.draw(graphics);
-
         graphics.drawImage(this.logo, 140, 20, 200, 50, null);
 
         for (int i = 0; i < this.label.getButtons().size(); i++) {

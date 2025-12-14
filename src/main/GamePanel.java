@@ -27,20 +27,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private final long tTime = 1000 / FRAME_PER_SEC;
 
     private Graphics2D graphics;
-
     private ScreensManager manager;
 
     public GamePanel() {
-
-
         super();
         this.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         this.setFocusable(true);
-
         this.requestFocus();
-
     }
-
 
     /**
      * Ak je okno vytvorene zisti ci uz existuje vlakno, ak nie vytvorí ho
@@ -54,18 +48,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         }
     }
 
-
     /**
      * Spusti gameLoop ktory bezi pokym je alive true zaroven
      * neustale prekresluje celu obrazovku a tvary a obrazky na nej
      */
     public void run() {
         this.init();
-
         long start;
         long elapsed;
         long wait;
-
 
         while (this.alive) {
             update();
@@ -75,8 +66,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             elapsed = System.nanoTime() - start;
             wait = tTime - elapsed / 1000000;
 
-
-
             try {
                 Thread.sleep(wait);
 
@@ -84,8 +73,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 e.printStackTrace();
             }
         }
-
-
     }
 
     /**
@@ -108,7 +95,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private void drawToScreen() {
         Graphics g2 = getGraphics();
         g2.drawImage(this.image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
-
     }
 
     /**
@@ -116,7 +102,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
      */
     private void init() {
         this.image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-
         this.alive = true;
         this.graphics = (Graphics2D)this.image.getGraphics();
         this.manager = new ScreensManager();
@@ -126,8 +111,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     /**
      * @param k key event
      */
-    public void keyTyped(KeyEvent k) {
-    }
+    public void keyTyped(KeyEvent k) {}
 
     /**
      * listener pre stlacene tlacidla
@@ -136,7 +120,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
      * @param k key event
      */
     public void keyPressed(KeyEvent k) {
-
         this.manager.keyPressed(k.getKeyCode());
     }
 
