@@ -38,20 +38,20 @@ public abstract class Level extends Screen {
      */
     public Level(ScreensManager manager, String pathName, int xMinca, int yMinca) {
         super(manager);
-
         this.xminca = xMinca;
         this.yminca = yMinca;
         this.pozadie = new Pozadie(pathName);
         this.grid = new LevelGrid(30);
         this.player = new Player(this.grid);
+        int mapHeight = this.grid.getHeight();
+        //this.player.setX(100);
+        //this.player.setY(mapHeight );
 
         try {
             this.minca = ImageIO.read(new File("images/coin.png"));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         init();
     }
 
@@ -61,9 +61,7 @@ public abstract class Level extends Screen {
      */
     @Override
     public void init() {
-
         this.loadHeart();
-
     }
 
 
