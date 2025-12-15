@@ -82,8 +82,6 @@ public abstract class MapObject {
         this.vyska = tilesize;
 
         this.jumping = false;
-
-
         this.blockedRight = false;
         this.blockedLeft = false;
         this.blockedUp = false;
@@ -349,7 +347,6 @@ public abstract class MapObject {
                 this.dy = 4.5;
             }
         }
-
     }
 
     /**

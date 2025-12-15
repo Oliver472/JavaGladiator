@@ -20,8 +20,6 @@ public class Scout extends Enemy {
     public Scout(int x, int y, LevelGrid tileMap) {
         super(x, y, tileMap);
         super.loadSprites("Scout");
-
-
     }
 
 

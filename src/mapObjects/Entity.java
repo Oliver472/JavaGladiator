@@ -14,11 +14,19 @@ import java.util.ArrayList;
  */
 public abstract class Entity extends MapObject {
 
+    public static final double DEFAULT_WALK_SPEED = 3.5;
+    public static final double DEFAULT_JUMP_UP_SPEED = -8.0;
+    public static final double DEFAULT_JUMP_FALL_SPEED = 8.0;
+    public static final double DEFAULT_JUMP_FUEL_CONSUMPTION = 0.65;
+
+    protected double walkSpeed;
+    protected double jumpUpSpeed;
+    protected double jumpFallSpeed;
+    protected double jumpFuelConsumption;
+
     private ArrayList<BufferedImage> sprites;
     private ArrayList<BufferedImage> spritesReversed;
-
     private ArrayList<BufferedImage> spritesStand;
-
     private ArrayList<BufferedImage> spritesStandReversed;
 
     private BufferedImage img;
@@ -35,11 +43,15 @@ public abstract class Entity extends MapObject {
     public Entity(int x, int y, LevelGrid tileMap) {
         super(x, y, tileMap);
 
+        this.walkSpeed = DEFAULT_WALK_SPEED;
+        this.jumpUpSpeed = DEFAULT_JUMP_UP_SPEED;
+        this.jumpFallSpeed = DEFAULT_JUMP_FALL_SPEED;
+        this.jumpFuelConsumption = DEFAULT_JUMP_FUEL_CONSUMPTION;
+
         this.sprites = new ArrayList<BufferedImage>();
         this.spritesReversed = new ArrayList<BufferedImage>();
         this.spritesStand = new ArrayList<BufferedImage>();
         this.spritesStandReversed = new ArrayList<BufferedImage>();
-
     }
 
     /**
@@ -50,32 +62,21 @@ public abstract class Entity extends MapObject {
 
 
     public void move() {
-        //skok
+        // Logika skoku
         if (super.isJumping()) {
-            super.setDy(-4.5);
-            double g = super.getySpeed();
-            super.setySpeed(g - 0.5 );
+            super.setDy(this.jumpUpSpeed);
+            double remainingJumpEnergy = super.getySpeed();
+            super.setySpeed(remainingJumpEnergy - this.jumpFuelConsumption);
             if (super.getySpeed() <= 0) {
-
                 super.setySpeed(0);
-                super.setDy(4.5);
+                super.setDy(this.jumpFallSpeed);
                 super.setJumping(false);
             }
         }
 
         super.setX(super.getX() + super.getDx());
         super.setY(super.getY() + super.getDy());
-
-
         this.kolizia();
-
-
-
-
-      /*  this.r1.setLocation((int)this.x, (int)this.y);
-        this.leftRec.setLocation((int)this.x - this.sirka, (int)this.y);
-        this.rightRec.setLocation((int)this.x + this.sirka, (int)this.y);
-        this.bottomRec.setLocation((int)this.x, (int)this.y + vyska);*/
     }
 
 
@@ -88,10 +89,8 @@ public abstract class Entity extends MapObject {
         try {
             BufferedImage spriteSheet = ImageIO.read(new File("images/" + nameOfEntity + "-Sprite Sheet.png"));
             for (int i = 0; i < 4; i++) {
-
                 this.img = spriteSheet.getSubimage(i * 31 + i, 31, 31, super.getVyska());
                 this.sprites.add(this.img);
-
             }
 
         } catch (IOException e) {
@@ -101,7 +100,6 @@ public abstract class Entity extends MapObject {
         try {
             BufferedImage spriteSheetRev = ImageIO.read(new File("images/" + nameOfEntity + "-Sprite SheetReversed.png"));
             for (int i = 1; i < 5; i++) {
-
                 this.img = spriteSheetRev.getSubimage(spriteSheetRev.getWidth() - (i * 31 + i), 31, 31, super.getSirka());
                 this.spritesReversed.add(this.img);
             }
@@ -113,7 +111,6 @@ public abstract class Entity extends MapObject {
         try {
             BufferedImage spriteSheet = ImageIO.read(new File("images/" + nameOfEntity + "-Sprite Sheet.png"));
             for (int i = 0; i < 4; i++) {
-
                 this.img = spriteSheet.getSubimage(i * 31 + i, 0, 31, super.getVyska());
                 this.spritesStand.add(this.img);
             }
@@ -125,7 +122,6 @@ public abstract class Entity extends MapObject {
         try {
             BufferedImage spriteSheetRev = ImageIO.read(new File("images/" + nameOfEntity + "-Sprite SheetReversed.png"));
             for (int i = 1; i < 5; i++) {
-
                 this.img = spriteSheetRev.getSubimage(spriteSheetRev.getWidth() - (i * 31 + i), 0, 31, super.getVyska());
                 this.spritesStandReversed.add(this.img);
             }

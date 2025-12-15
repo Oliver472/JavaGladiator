@@ -10,12 +10,9 @@ import java.awt.image.BufferedImage;
  * LEVEL 1
  */
 public class Level1 extends Level {
-
     private BufferedImage minca;
-
     private double f;
     private Scout scout;
-
 
     /**
      * Vytvori LEVEL 1
@@ -40,7 +37,7 @@ public class Level1 extends Level {
         super.getGrid().setPosition(0, 0);
 
 
-        this.scout = new Scout(100, 100, super.getGrid());
+        //this.scout = new Scout(100, 100, super.getGrid());
 
 
     }
@@ -64,9 +61,9 @@ public class Level1 extends Level {
     @Override
     public void draw(Graphics2D graphics) {
         super.draw(graphics);
-        this.scout.draw(graphics);
-        this.scout.moveEnemy((int)super.getPlayer().getX(), (int)super.getPlayer().getY());
-        this.koliziaHracaAEnemy(this.scout);
+        //this.scout.draw(graphics);
+        //this.scout.moveEnemy((int)super.getPlayer().getX(), (int)super.getPlayer().getY());
+        //this.koliziaHracaAEnemy(this.scout);
 
     }
 
