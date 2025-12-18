@@ -418,4 +418,8 @@ public abstract class MapObject {
             g.draw(this.bottomRec);
         }
     }
+
+    public LevelGrid getTileMap() {
+        return this.tileMap;
+    }
 }

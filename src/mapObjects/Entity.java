@@ -139,20 +139,22 @@ public abstract class Entity extends MapObject {
      * @param x index
      */
     public void changeSprites(Graphics2D g, int x) {
+        int mapX = super.getTileMap().getX();
+        int mapY = super.getTileMap().getY();
+
         if (super.isMoving()) {
             if (super.isHeadingR()) {
-                g.drawImage(this.sprites.get(x), (int)super.getX(), (int)super.getY(), super.getSirka(), super.getVyska(), null);
+                g.drawImage(this.sprites.get(x), (int)super.getX() + mapX, (int)super.getY() + mapY, super.getSirka(), super.getVyska(), null);
             } else {
-                g.drawImage(this.spritesReversed.get(x), (int)super.getX(), (int)super.getY(), super.getSirka(), super.getVyska(), null);
+                g.drawImage(this.spritesReversed.get(x), (int)super.getX() + mapX, (int)super.getY() + mapY, super.getSirka(), super.getVyska(), null);
             }
         } else {
             if (super.isHeadingR()) {
-                g.drawImage(this.spritesStand.get(x), (int)super.getX(), (int)super.getY(), super.getSirka(), super.getVyska(), null);
+                g.drawImage(this.spritesStand.get(x), (int)super.getX() + mapX, (int)super.getY() + mapY, super.getSirka(), super.getVyska(), null);
             } else {
-                g.drawImage(this.spritesStandReversed.get(x), (int)super.getX(), (int)super.getY(), super.getSirka(), super.getVyska(), null);
+                g.drawImage(this.spritesStandReversed.get(x), (int)super.getX() + mapX, (int)super.getY() + mapY, super.getSirka(), super.getVyska(), null);
             }
         }
-
     }
 
 

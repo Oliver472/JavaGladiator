@@ -39,11 +39,7 @@ public class Scout extends Enemy {
      */
     @Override
     public void draw(Graphics2D g) {
-
         super.draw(g);
-
         super.move();
-
-
     }
 }

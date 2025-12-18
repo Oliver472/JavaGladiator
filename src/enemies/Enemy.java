@@ -21,8 +21,6 @@ public abstract class Enemy extends Entity {
     }
 
 
-
-
     /**
      * Meni x suradnicu nepriatela podla x suradnice hraca, priblizuje nepriatela k hracovi
      *

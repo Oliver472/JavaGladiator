@@ -21,7 +21,7 @@ public class Level1 extends Level {
      * @param manager manazer screenov
      */
     public Level1(ScreensManager manager) {
-        super(manager, "images/sandBg.png", 370, 95 );
+        super(manager, "images/sandBg.png", 370, 95);
         init();
     }
 
@@ -36,24 +36,14 @@ public class Level1 extends Level {
         super.getGrid().loadTiles("images/SandTiles.png");
         super.getGrid().loadMap("maps/level1.map");
 
-        //this.scout = new Scout(100, 100, super.getGrid());
-
         int mapHeight = super.getGrid().getHeight();
-
-        // 3. NASTAVENIE HRÁČA
-        // X = 100
-        // Y = Výška mapy - (veľa pixelov), aby sme ho dali nad podlahu
-        // Dajte napríklad -150 alebo -200, aby ste mali istotu, že sa spawne nad zemou
         super.getPlayer().setX(100);
         super.getPlayer().setY(mapHeight - 200);
 
-        // 4. Nastavenie kamery na hráča
         super.getGrid().setPosition(
-                GamePanel.WIDTH / 2 - super.getPlayer().getX(),
-                GamePanel.HEIGHT / 2 - super.getPlayer().getY()
+                (double) GamePanel.WIDTH / 2 - super.getPlayer().getX(),
+                (double) GamePanel.HEIGHT / 2 - super.getPlayer().getY()
         );
-
-
     }
 
 
@@ -63,11 +53,10 @@ public class Level1 extends Level {
     @Override
     public void update() {
         super.getPlayer().update();
-
         // Update kamery (aby sledovala hráča)
         super.getGrid().setPosition(
-                GamePanel.WIDTH / 2 - super.getPlayer().getX(),
-                GamePanel.HEIGHT / 2 - super.getPlayer().getY()
+                (double) GamePanel.WIDTH / 2 - super.getPlayer().getX(),
+                (double) GamePanel.HEIGHT / 2 - super.getPlayer().getY()
         );
     }
 
