@@ -23,9 +23,11 @@ public class MenuScreen extends Screen {
     private int selection;
 
     private final String[] optionsPressed = {
-        "playBtnPressed",
-        "optionsBtnPressed",
-        "quitBtnPressed",
+            "playBtnPressed",
+            "newGameButtonPressed",
+            "loadGameButtonPressed",
+            "optionsBtnPressed",
+            "quitBtnPressed",
     };
 
     /**
