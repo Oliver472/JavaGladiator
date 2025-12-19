@@ -16,21 +16,16 @@ public class ScreensManager {
      * nastavi aktualny screen
      */
     public ScreensManager() {
-
-
         this.screens = new ArrayList<Screen>();
-
         Screen menuScreen = new MenuScreen(this);
+        Screen loadScreen = new LoadScreen(this);
         Screen level1 = new Level1(this);
         Screen level2 = new Level2(this);
         this.screens.add(menuScreen);
         this.screens.add(level1);
         this.screens.add(level2);
-
-
         this.currScreen = menuScreen;
-
-
+        this.screens.add(loadScreen);
     }
 
     /**
@@ -54,8 +49,6 @@ public class ScreensManager {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
-
-
     }
 
     /**

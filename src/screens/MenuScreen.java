@@ -1,146 +1,95 @@
 package screens;
 
 import grid.Pozadie;
-
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Screen menu kde si pouzivatel vyberie z moznosti
- *
- * @author olivermrovcak
- */
 public class MenuScreen extends Screen {
 
     private Pozadie pozadie;
-    private MenuLabel label;
-
     private BufferedImage logo;
-    private int selection;
+    private MenuOption currentOption;
+    private final static int BUTTON_MARGIN = 28;
 
-    private final String[] optionsPressed = {
-            "playBtnPressed",
-            "newGameButtonPressed",
-            "loadGameButtonPressed",
-            "optionsBtnPressed",
-            "quitBtnPressed",
-    };
+    // Cache pre načítané obrázky tlačidiel, aby sme ich nenačítavali v každom cykle draw
+    private final Map<MenuOption, BufferedImage> normalImages = new HashMap<>();
+    private final Map<MenuOption, BufferedImage> pressedImages = new HashMap<>();
 
-    /**
-     * Konstruktor vytvori pozadie, tlacidla a logo
-     *
-     * @param manager
-     */
     public MenuScreen(ScreensManager manager) {
         super(manager);
-        this.selection = 0;
+        this.currentOption = MenuOption.PLAY; // Predvolená možnosť
         this.init();
     }
 
-
-    /**
-     * Inicializacia screenu
-     */
     @Override
     public void init() {
-        this.label = new MenuLabel("images/label.png");
         this.pozadie = new Pozadie("images/bgColloseum2.png");
         try {
             this.logo = ImageIO.read(new File("images/Gladiator_logo.png"));
+            for (MenuOption option : MenuOption.values()) {
+                normalImages.put(option, ImageIO.read(new File(option.getNormalPath())));
+                pressedImages.put(option, ImageIO.read(new File(option.getPressedPath())));
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Problem with loading menu: " + e.getMessage());
         }
     }
 
-    /**
-     * Update pozadia
-     */
     @Override
     public void update() {
         this.pozadie.update();
     }
 
-    /**
-     * Vykreslenie pozadia, tlacidiel a loga
-     *
-     * @param graphics tvar
-     */
     @Override
     public void draw(Graphics2D graphics) {
         this.pozadie.draw(graphics);
         graphics.drawImage(this.logo, 140, 20, 200, 50, null);
 
-        for (int i = 0; i < this.label.getButtons().size(); i++) {
-            if (i == this.selection) {
-
-                graphics.drawImage(this.label.getButtonsPressed().get(i), 215, 140 + i * 28, 50, 25, null);
-            } else {
-                graphics.drawImage(this.label.getButtons().get(i), 215, 140 + i * 28, 50, 25, null);
-            }
-
-
+        // Vykreslenie tlačidiel dynamicky podľa Enumu
+        int i = 0;
+        for (MenuOption option : MenuOption.values()) {
+            BufferedImage toDraw = (option == currentOption) ? pressedImages.get(option) : normalImages.get(option);
+            graphics.drawImage(toDraw, 215, 140 + i * BUTTON_MARGIN, 50, 25, null);
+            i++;
         }
-
     }
 
-    /**
-     * Reaguje na pustenie tlacidiel
-     *
-     * @param k keyCode
-     */
-    @Override
-    public void keyReleased(int k) {
-
-    }
-
-    /**
-     * Nastavuje a resetuje vyber z moznosti
-     *
-     * @param x vyber z moznosti v menu
-     */
-    private void optionSwitch(int x) {
-
-        this.selection += x;
-
-        if (this.selection < 0) {
-            this.selection = 2;
-        } else if (this.selection > 2) {
-            this.selection = 0;
-        }
-
-
-    }
-
-    /**
-     * Reaguje na stlacenie tlacdila
-     * vybera z moznosti menu
-     *
-     * @param k keyCode
-     */
     @Override
     public void keyPressed(int k) {
         if (k == KeyEvent.VK_DOWN) {
-            this.optionSwitch(1);
+            currentOption = currentOption.next();
         }
-
         if (k == KeyEvent.VK_UP) {
-            this.optionSwitch(-1);
+            currentOption = currentOption.previous();
         }
-
         if (k == KeyEvent.VK_ENTER) {
-            if (this.selection == 0) {
-                super.getManager().nastavScreen(super.getManager().getScreens().get(1));
-            }
-
-            if (this.selection == 2) {
-                System.exit(0);
-            }
+            executeSelection();
         }
-
-
     }
+
+    private void executeSelection() {
+        switch (currentOption) {
+            case PLAY:
+                super.getManager().nastavScreen(super.getManager().getScreens().get(1));
+                break;
+            case LOAD_SAVE:
+                super.getManager().nastavScreen(super.getManager().getScreens().get(3));
+                break;
+            case OPTIONS:
+                System.out.println("Options clicked");
+                break;
+            case QUIT:
+                System.exit(0);
+                break;
+        }
+    }
+
+    @Override
+    public void keyReleased(int k) {}
 }
