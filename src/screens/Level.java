@@ -21,17 +21,12 @@ public abstract class Level extends Screen {
     private Pozadie pozadie;
     private Player player;
     private LevelGrid grid;
-
     private int lvl;
     private BufferedImage heart;
-
     private BufferedImage minca;
-
     private boolean zobralMincu;
-
     private int xminca;
     private int yminca;
-
 
     /**
      * Konstruktor priradi Objektu manazera
