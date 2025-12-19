@@ -1,6 +1,7 @@
 package screens;
 
 import grid.Pozadie;
+
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -17,13 +18,12 @@ public class MenuScreen extends Screen {
     private MenuOption currentOption;
     private final static int BUTTON_MARGIN = 28;
 
-    // Cache pre načítané obrázky tlačidiel, aby sme ich nenačítavali v každom cykle draw
     private final Map<MenuOption, BufferedImage> normalImages = new HashMap<>();
     private final Map<MenuOption, BufferedImage> pressedImages = new HashMap<>();
 
     public MenuScreen(ScreensManager manager) {
         super(manager);
-        this.currentOption = MenuOption.PLAY; // Predvolená možnosť
+        this.currentOption = MenuOption.PLAY;
         this.init();
     }
 
@@ -91,5 +91,6 @@ public class MenuScreen extends Screen {
     }
 
     @Override
-    public void keyReleased(int k) {}
+    public void keyReleased(int k) {
+    }
 }

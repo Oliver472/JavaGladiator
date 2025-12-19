@@ -10,7 +10,6 @@ public class ScreensManager {
     private final ArrayList<Screen> screens;
     private Screen currScreen;
 
-
     /**
      * Konstruktor vytovri ArrayList screenov a vytvori vsetky screeny ktore sa budu dat zobrazit
      * nastavi aktualny screen
