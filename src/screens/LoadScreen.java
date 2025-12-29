@@ -14,9 +14,9 @@ public class LoadScreen extends Screen {
     private Pozadie pozadie;
     private BufferedImage flag;
 
-    private int focusedIndex = 0; // Ktorá vlajka je vybratá (0-9)
+    private int focusedIndex = 0;
     private final int POCET_VLAJIEK = 7;
-    private final int ROZOSTUP = 60; // Medzera medzi vlajkami
+    private final int MARGIN = 60;
 
     public LoadScreen(ScreensManager manager) {
         super(manager);
@@ -35,7 +35,7 @@ public class LoadScreen extends Screen {
 
     @Override
     public void update() {
-        // Tu môžeš riešiť plynulé animácie, ak by si chcel
+
     }
 
     @Override
@@ -43,10 +43,9 @@ public class LoadScreen extends Screen {
         this.pozadie.draw(graphics);
 
         for (int i = 0; i < POCET_VLAJIEK; i++) {
-            int x = 50 + (i * ROZOSTUP);
+            int x = 50 + (i * MARGIN);
             int y = 120;
 
-            // Ak je vlajka focusnutá, zdvihneme ju o 15 pixelov vyššie
             if (i == focusedIndex) {
                 y -= 15;
             }
@@ -55,7 +54,6 @@ public class LoadScreen extends Screen {
         }
     }
 
-    // Tvoj nový wrapper s veľkosťou
     private void drawFlag(Graphics2D g, int x, int y, int w, int h) {
         if (this.flag != null) {
             g.drawImage(this.flag, x, y, w, h, null);
@@ -64,14 +62,13 @@ public class LoadScreen extends Screen {
 
     @Override
     public void keyPressed(int k) {
-        // Predpokladajme, že používaš konštanty z KeyEvent (napr. 37 = Left, 39 = Right)
-        if (k == 39) { // Šípka DOPRAVA
+        if (k == 39) {
             focusedIndex++;
-            if (focusedIndex >= POCET_VLAJIEK) focusedIndex = 0; // Skoč na začiatok
+            if (focusedIndex >= POCET_VLAJIEK) focusedIndex = 0;
         }
-        if (k == 37) { // Šípka DOĽAVA
+        if (k == 37) {
             focusedIndex--;
-            if (focusedIndex < 0) focusedIndex = POCET_VLAJIEK - 1; // Skoč na koniec
+            if (focusedIndex < 0) focusedIndex = POCET_VLAJIEK - 1;
         }
     }
 
