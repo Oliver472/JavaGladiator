@@ -7,11 +7,19 @@ import com.google.gson.reflect.TypeToken;
 
 public class SaveManager {
 
+    private static SaveManager instance;
     private static final String FILE_NAME = "./saveGame/saveFile.dat";
     private ArrayList<LevelEntity> levels;
 
     public void SaveManager() {
         this.levels = new ArrayList<>();
+    }
+
+    public static SaveManager getInstance() {
+        if (instance == null) {
+            instance = new SaveManager();
+        }
+        return instance;
     }
 
     public void loadGame() {
