@@ -52,7 +52,7 @@ public abstract class Level extends Screen {
             e.printStackTrace();
         }
 
-        init();
+        this.init();
     }
 
     /**
@@ -61,9 +61,7 @@ public abstract class Level extends Screen {
      */
     @Override
     public void init() {
-
         this.loadHeart();
-
     }
 
 
@@ -77,7 +75,6 @@ public abstract class Level extends Screen {
             e.printStackTrace();
         }
     }
-
 
     /**
      * vrati grid

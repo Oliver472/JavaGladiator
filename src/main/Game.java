@@ -15,8 +15,7 @@ public class Game {
         window.setResizable(true);
         window.pack();
         window.setVisible(true);
-        SaveManager saveManager = new SaveManager();
-        saveManager.loadGame();
+        SaveManager.getInstance().loadGame();
     }
 }
 

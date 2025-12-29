@@ -1,20 +1,47 @@
 package saveManager;
 
 public class LevelEntity {
-    public int id;
-    public boolean completed;
+
+    private int id;
+    private boolean completed;
+    private String pathToMapFile;
 
     public LevelEntity() {
 
     }
 
-    public LevelEntity(int id, boolean completed) {
+    public LevelEntity(int id, boolean completed, String pathToMapFile) {
         this.id = id;
         this.completed = completed;
+        this.pathToMapFile = pathToMapFile;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isCompleted() {
+        return this.completed;
+    }
+
+    public void setCompleted() {
+        this.completed = true;
+    }
+
+    public void setNotCompleted() {
+        this.completed = false;
+    }
+
+    public String getPathToMapFile() {
+        return this.pathToMapFile;
     }
 
     @Override
     public String toString() {
-        return "Level " + id + ": " + (completed ? "Hotovo" : "Nedokončené");
+        return "Level " + this.id + ": " + (this.completed ? "Hotovo" : "Nedokončené " + this.pathToMapFile);
     }
 }
