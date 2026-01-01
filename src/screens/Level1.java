@@ -23,8 +23,8 @@ public class Level1 extends Level {
      * @param manager manazer screenov
      */
     public Level1(ScreensManager manager) {
-        super(manager, "images/sandBg.png", 370, 95 );
-        init();
+        super(manager, "images/sandBg.png");
+        //init();
     }
 
     /**
@@ -34,15 +34,10 @@ public class Level1 extends Level {
     public void init() {
         super.init();
         this.f = 0;
-
         super.getGrid().loadTiles("images/SandTiles.png");
         super.getGrid().loadMap("maps/level1.map");
         super.getGrid().setPosition(0, 0);
-
-
         this.scout = new Scout(100, 100, super.getGrid());
-
-
     }
 
 

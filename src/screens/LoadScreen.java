@@ -1,6 +1,6 @@
 package screens;
 
-import grid.Pozadie;
+import grid.Background;
 import saveManager.LevelEntity;
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class LoadScreen extends Screen {
 
-    private Pozadie pozadie;
+    private Background background;
     private BufferedImage flag;
     private ArrayList<LevelEntity> levels;
 
@@ -20,13 +20,14 @@ public class LoadScreen extends Screen {
 
     public LoadScreen(ScreensManager manager) {
         super(manager);
+        this.levels = super.getManager().getSaveManager().getLevels();
         this.init();
     }
 
     @Override
     public void init() {
         try {
-            this.pozadie = new Pozadie("images/bgLoadLevels.png");
+            this.background = new Background("images/bgLoadLevels.png");
             this.flag = ImageIO.read(new File("images/flag.png"));
         } catch (IOException e) {
             System.err.println("Problem with screen: " + e.getMessage());
@@ -40,17 +41,17 @@ public class LoadScreen extends Screen {
 
     @Override
     public void draw(Graphics2D graphics) {
-        this.pozadie.draw(graphics);
+        this.background.draw(graphics);
 
         for (int i = 0; i < this.levels.size(); i++) {
-            int x = 50 + (i * this.MARGIN);
+            int x = 50 + (i * MARGIN);
             int y = 120;
 
-            if (i == this.focusedIndex) {
+            LevelEntity level = this.levels.get(i);
+
+            if (i == this.focusedIndex ) {
                 y -= 15;
             }
-
-            LevelEntity level = this.levels.get(i);
 
             this.drawFlag(graphics, x, y, 50, 50, level.getId());
         }
@@ -60,13 +61,11 @@ public class LoadScreen extends Screen {
         if (this.flag != null) {
             g.drawImage(this.flag, x, y, w, h, null);
         }
-
-
-
     }
 
     private void chooseLevel() {
         LevelEntity selectedLevel = this.levels.get(this.focusedIndex);
+        super.getManager().setLevelScreen(selectedLevel);
         System.out.println("Loading Level: " + selectedLevel.toString());
     }
 

@@ -3,7 +3,7 @@ package screens;
 import enemies.Enemy;
 
 import grid.LevelGrid;
-import grid.Pozadie;
+import grid.Background;
 import player.Player;
 
 import javax.imageio.ImageIO;
@@ -16,32 +16,24 @@ import java.io.IOException;
 /**
  * Trieda Level je Predok vsetkych levelov a zaroven potom triedy Screen
  */
-public abstract class Level extends Screen {
+public  class Level extends Screen {
 
-    private Pozadie pozadie;
+    private Background background;
     private Player player;
     private LevelGrid grid;
-
     private int lvl;
     private BufferedImage heart;
-
     private BufferedImage minca;
-
     private boolean zobralMincu;
-
     private int xminca;
     private int yminca;
-
 
     /**
      * Konstruktor priradi Objektu manazera
      */
-    public Level(ScreensManager manager, String pathName, int xMinca, int yMinca) {
+    public Level(ScreensManager manager, String pathName) {
         super(manager);
-
-        this.xminca = xMinca;
-        this.yminca = yMinca;
-        this.pozadie = new Pozadie(pathName);
+        this.background = new Background("images/bgColloseum2.png");
         this.grid = new LevelGrid(30);
         this.player = new Player(this.grid);
 
@@ -63,7 +55,6 @@ public abstract class Level extends Screen {
     public void init() {
         this.loadHeart();
     }
-
 
     /**
      * Nacitanie obrazku zivota
@@ -117,16 +108,13 @@ public abstract class Level extends Screen {
      */
     @Override
     public void draw(Graphics2D graphics) {
-
-        this.pozadie.draw(graphics);
+        this.background.draw(graphics);
         this.grid.draw(graphics);
         this.player.draw(graphics);
         this.drawPlayerHealth(graphics);
         this.vratDoLobby();
-
         this.koliziaHracaAMince();
         graphics.drawImage(this.minca, this.xminca, this.yminca, 23, 17, null);
-
     }
 
     /**

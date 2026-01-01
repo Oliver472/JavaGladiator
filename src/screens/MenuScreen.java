@@ -1,6 +1,6 @@
 package screens;
 
-import grid.Pozadie;
+import grid.Background;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class MenuScreen extends Screen {
 
-    private Pozadie pozadie;
+    private Background background;
     private BufferedImage logo;
     private MenuOption currentOption;
     private static final int BUTTON_MARGIN = 28;
@@ -29,7 +29,7 @@ public class MenuScreen extends Screen {
 
     @Override
     public void init() {
-        this.pozadie = new Pozadie("images/bgColloseum2.png");
+        this.background = new Background("images/bgColloseum2.png");
         try {
             this.logo = ImageIO.read(new File("images/Gladiator_logo.png"));
             for (MenuOption option : MenuOption.values()) {
@@ -43,12 +43,12 @@ public class MenuScreen extends Screen {
 
     @Override
     public void update() {
-        this.pozadie.update();
+        this.background.update();
     }
 
     @Override
     public void draw(Graphics2D graphics) {
-        this.pozadie.draw(graphics);
+        this.background.draw(graphics);
         graphics.drawImage(this.logo, 140, 20, 200, 50, null);
 
         // Vykreslenie tlačidiel dynamicky podľa Enumu
