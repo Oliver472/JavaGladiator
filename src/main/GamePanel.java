@@ -1,5 +1,6 @@
 package main;
 
+import saveManager.SaveManager;
 import screens.ScreensManager;
 
 import javax.swing.JPanel;
@@ -106,7 +107,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         this.graphics = (Graphics2D)this.image.getGraphics();
         this.manager = new ScreensManager();
     }
-
 
     /**
      * @param k key event

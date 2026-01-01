@@ -2,15 +2,12 @@ package screens;
 
 import grid.Pozadie;
 import saveManager.LevelEntity;
-import saveManager.SaveManager;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 
 public class LoadScreen extends Screen {
 
@@ -19,12 +16,10 @@ public class LoadScreen extends Screen {
     private ArrayList<LevelEntity> levels;
 
     private int focusedIndex = 0;
-    private final int MARGIN = 60;
+    public static final int MARGIN = 60;
 
     public LoadScreen(ScreensManager manager) {
         super(manager);
-        SaveManager saveManager = SaveManager.getInstance();
-        this.levels = saveManager.getLevels();
         this.init();
     }
 
@@ -66,23 +61,6 @@ public class LoadScreen extends Screen {
             g.drawImage(this.flag, x, y, w, h, null);
         }
 
-        String text = String.valueOf(id);
-
-        // Set Font styling (Adjust size '20' to fit your flag image)
-        g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.setColor(Color.WHITE); // Choose a color that stands out against your flag
-
-        // 3. Calculate Center Position
-        FontMetrics metrics = g.getFontMetrics();
-
-        // Math to center horizontally
-        int textX = x + (w - metrics.stringWidth(text)) / 2;
-
-        // Math to center vertically (Ascent is the distance from baseline to top of char)
-        int textY = y + ((h - metrics.getHeight()) / 2) + metrics.getAscent();
-
-        // 4. Draw the String
-        g.drawString(text, textX, textY);
 
 
     }

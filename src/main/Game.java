@@ -1,7 +1,4 @@
 package main;
-
-import saveManager.SaveManager;
-
 import javax.swing.JFrame;
 
 /**
@@ -15,7 +12,6 @@ public class Game {
         window.setResizable(true);
         window.pack();
         window.setVisible(true);
-        SaveManager.getInstance().loadGame();
     }
 }
 

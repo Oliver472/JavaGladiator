@@ -16,7 +16,7 @@ public class MenuScreen extends Screen {
     private Pozadie pozadie;
     private BufferedImage logo;
     private MenuOption currentOption;
-    private final static int BUTTON_MARGIN = 28;
+    private static final int BUTTON_MARGIN = 28;
 
     private final Map<MenuOption, BufferedImage> normalImages = new HashMap<>();
     private final Map<MenuOption, BufferedImage> pressedImages = new HashMap<>();
@@ -33,8 +33,8 @@ public class MenuScreen extends Screen {
         try {
             this.logo = ImageIO.read(new File("images/Gladiator_logo.png"));
             for (MenuOption option : MenuOption.values()) {
-                normalImages.put(option, ImageIO.read(new File(option.getNormalPath())));
-                pressedImages.put(option, ImageIO.read(new File(option.getPressedPath())));
+                this.normalImages.put(option, ImageIO.read(new File(option.getNormalPath())));
+                this.pressedImages.put(option, ImageIO.read(new File(option.getPressedPath())));
             }
         } catch (IOException e) {
             System.err.println("Problem with loading menu: " + e.getMessage());
@@ -54,7 +54,7 @@ public class MenuScreen extends Screen {
         // Vykreslenie tlačidiel dynamicky podľa Enumu
         int i = 0;
         for (MenuOption option : MenuOption.values()) {
-            BufferedImage toDraw = (option == currentOption) ? pressedImages.get(option) : normalImages.get(option);
+            BufferedImage toDraw = (option == this.currentOption) ? this.pressedImages.get(option) : this.normalImages.get(option);
             graphics.drawImage(toDraw, 215, 140 + i * BUTTON_MARGIN, 50, 25, null);
             i++;
         }
@@ -63,23 +63,23 @@ public class MenuScreen extends Screen {
     @Override
     public void keyPressed(int k) {
         if (k == KeyEvent.VK_DOWN) {
-            currentOption = currentOption.next();
+            this.currentOption = this.currentOption.next();
         }
         if (k == KeyEvent.VK_UP) {
-            currentOption = currentOption.previous();
+            this.currentOption = this.currentOption.previous();
         }
         if (k == KeyEvent.VK_ENTER) {
-            executeSelection();
+            this.executeSelection();
         }
     }
 
     private void executeSelection() {
-        switch (currentOption) {
+        switch (this.currentOption) {
             case PLAY:
-                super.getManager().nastavScreen(super.getManager().getScreens().get(1));
+                //super.getManager().nastavScreen(super.getManager().getScreens().get(1));
                 break;
             case LOAD_SAVE:
-                super.getManager().nastavScreen(super.getManager().getScreens().get(3));
+                super.getManager().setLoadScreen();
                 break;
             case OPTIONS:
                 System.out.println("Options clicked");

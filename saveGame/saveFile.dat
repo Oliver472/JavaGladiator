@@ -1,6 +1,6 @@
 [
   { "id": 1, "completed": false, "pathToMapFile": "./maps/level1.map" },
-  { "id": 2, "completed": false },
-  { "id": 3, "completed": false },
-  { "id": 4, "completed": false }
+  { "id": 2, "completed": false, "pathToMapFile": "./maps/level1.map"  },
+  { "id": 3, "completed": false, "pathToMapFile": "./maps/level1.map"  },
+  { "id": 4, "completed": false, "pathToMapFile": "./maps/level1.map"  }
 ]

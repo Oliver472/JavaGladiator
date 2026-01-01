@@ -132,9 +132,6 @@ public abstract class Level extends Screen {
     /**
      * Prepne na dalsi lvl ked je podm. splnena
      */
-    private void dajDalsiLvl() {
-        super.getManager().nastavScreen(super.getManager().getScreens().get(2));
-    }
 
     /**
      * Vykreslenie zivotov hraca
@@ -196,13 +193,11 @@ public abstract class Level extends Screen {
         if (x1Hraca < x2Minca && x2Hraca > x1Minca && y1Hraca < y2Minca && y2Hraca > y1Minca) {
 
             this.zobralMincu = true;
-            this.dajDalsiLvl();
         }
     }
 
     public void vratDoLobby() {
         if (this.player.getHealth() <= 0) {
-            super.getManager().nastavScreen(super.getManager().getScreens().get(0));
             this.player.setFullHealth();
         }
     }
@@ -228,7 +223,7 @@ public abstract class Level extends Screen {
     @Override
     public void keyPressed(int k) {
         if (k == KeyEvent.VK_ESCAPE) {
-            super.getManager().nastavScreen(super.getManager().getScreens().get(0));
+           //ss
         }
 
         this.player.keyPressed(k);
