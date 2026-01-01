@@ -4,6 +4,7 @@ import enemies.Enemy;
 
 import grid.LevelGrid;
 import grid.Background;
+import main.GamePanel;
 import player.Player;
 
 import javax.imageio.ImageIO;
@@ -19,6 +20,7 @@ import java.io.IOException;
 public  class Level extends Screen {
 
     private Background background;
+    private String levelPathName;
     private Player player;
     private LevelGrid grid;
     private int lvl;
@@ -33,6 +35,7 @@ public  class Level extends Screen {
      */
     public Level(ScreensManager manager, String pathName) {
         super(manager);
+        this.levelPathName = pathName;
         this.background = new Background("images/bgColloseum2.png");
         this.grid = new LevelGrid(30);
         this.player = new Player(this.grid);
@@ -54,6 +57,16 @@ public  class Level extends Screen {
     @Override
     public void init() {
         this.loadHeart();
+        this.getGrid().loadTiles("images/SandTiles.png");
+        this.getGrid().loadMap(this.levelPathName);
+        int mapHeight = this.getGrid().getHeight();
+        this.getPlayer().setX(100);
+        this.getPlayer().setY(mapHeight - 200);
+
+        this.getGrid().setPosition(
+                (double) GamePanel.WIDTH / 2 - this.getPlayer().getX(),
+                (double) GamePanel.HEIGHT / 2 - this.getPlayer().getY()
+        );
     }
 
     /**
@@ -98,7 +111,11 @@ public  class Level extends Screen {
      */
     @Override
     public void update() {
-
+        this.getPlayer().update();
+        this.getGrid().setPosition(
+                (double) GamePanel.WIDTH / 2 - this.getPlayer().getX(),
+                (double) GamePanel.HEIGHT / 2 - this.getPlayer().getY()
+        );
     }
 
     /**
@@ -112,9 +129,6 @@ public  class Level extends Screen {
         this.grid.draw(graphics);
         this.player.draw(graphics);
         this.drawPlayerHealth(graphics);
-        this.vratDoLobby();
-        this.koliziaHracaAMince();
-        graphics.drawImage(this.minca, this.xminca, this.yminca, 23, 17, null);
     }
 
     /**
