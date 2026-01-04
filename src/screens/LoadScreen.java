@@ -80,8 +80,12 @@ public class LoadScreen extends Screen {
 
     private void chooseLevel() {
         LevelEntity selectedLevel = this.levels.get(this.focusedIndex);
-        super.getManager().setLevelScreen(selectedLevel);
-        System.out.println("Loading Level: " + selectedLevel.toString());
+        if (selectedLevel.isUnlocked()) {
+            super.getManager().setLevelScreen(selectedLevel);
+            System.out.println("Loading Level: " + selectedLevel.toString());
+        } else {
+            System.out.println("Level locked");
+        }
     }
 
     @Override
@@ -104,5 +108,7 @@ public class LoadScreen extends Screen {
     }
 
     @Override
-    public void keyReleased(int k) {}
+    public void keyReleased(int k) {
+
+    }
 }
