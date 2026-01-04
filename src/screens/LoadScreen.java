@@ -1,6 +1,7 @@
 package screens;
 
 import grid.Background;
+import main.GamePanel;
 import saveManager.LevelEntity;
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -13,6 +14,7 @@ public class LoadScreen extends Screen {
 
     private Background background;
     private BufferedImage flag;
+    private BufferedImage lock;
     private ArrayList<LevelEntity> levels;
 
     private int focusedIndex = 0;
@@ -29,6 +31,7 @@ public class LoadScreen extends Screen {
         try {
             this.background = new Background("images/bgLoadLevels.png");
             this.flag = ImageIO.read(new File("images/flag.png"));
+            this.lock = ImageIO.read(new File("images/lock.png"));
         } catch (IOException e) {
             System.err.println("Problem with screen: " + e.getMessage());
         }
@@ -42,10 +45,16 @@ public class LoadScreen extends Screen {
     @Override
     public void draw(Graphics2D graphics) {
         this.background.draw(graphics);
+        int middleOfWindowWidth = GamePanel.WIDTH / 2;
+
+        int flagsRowWidth = this.levels.size() * MARGIN;
+        int middleOfFlagsRowWidth = flagsRowWidth / 2;
+
+        int pointOfRenderForFlags = middleOfWindowWidth - middleOfFlagsRowWidth;
 
         for (int i = 0; i < this.levels.size(); i++) {
-            int x = 50 + (i * MARGIN);
-            int y = 120;
+            int x = pointOfRenderForFlags + (i * MARGIN);
+            int y = GamePanel.HEIGHT / 2;
 
             LevelEntity level = this.levels.get(i);
 
@@ -53,13 +62,19 @@ public class LoadScreen extends Screen {
                 y -= 15;
             }
 
-            this.drawFlag(graphics, x, y, 50, 50, level.getId());
+            this.drawFlag(graphics, x, y, 50, 50, level.isCompleted());
         }
     }
 
-    private void drawFlag(Graphics2D g, int x, int y, int w, int h, int id) {
+    private void drawFlag(Graphics2D g, int x, int y, int w, int h, boolean isCompleted) {
+        int middleOfFlagWidth = w / 2;
+        int middleOfFlagHeight = h / 2;
+
         if (this.flag != null) {
             g.drawImage(this.flag, x, y, w, h, null);
+            if (!isCompleted) {
+                g.drawImage(this.lock, x + middleOfFlagWidth - 5, y + middleOfFlagHeight - 3, 10, 13, null);
+            }
         }
     }
 
