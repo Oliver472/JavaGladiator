@@ -76,7 +76,7 @@ public class MenuScreen extends Screen {
     private void executeSelection() {
         switch (this.currentOption) {
             case NEW_GAME:
-                //super.getManager().nastavScreen(super.getManager().getScreens().get(1));
+                super.getManager().setNewGame();
                 break;
             case LOAD_SAVE:
                 super.getManager().setLoadScreen();
