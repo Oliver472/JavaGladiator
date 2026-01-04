@@ -21,8 +21,7 @@ public class Level1 extends Level {
      * @param manager manazer screenov
      */
     public Level1(ScreensManager manager) {
-        super(manager, "images/sandBg.png", 370, 95);
-        init();
+        super(manager, "images/sandBg.png");
     }
 
     /**

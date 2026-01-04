@@ -1,5 +1,6 @@
 package main;
 
+import saveManager.SaveManager;
 import screens.ScreensManager;
 
 import javax.swing.JPanel;
@@ -59,12 +60,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         long wait;
 
         while (this.alive) {
-            update();
-            draw();
-            drawToScreen();
+            this.update();
+            this.draw();
+            this.drawToScreen();
             start = System.nanoTime();
             elapsed = System.nanoTime() - start;
-            wait = tTime - elapsed / 1000000;
+            wait = this.tTime - elapsed / 1000000;
 
             try {
                 Thread.sleep(wait);
@@ -107,11 +108,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         this.manager = new ScreensManager();
     }
 
-
     /**
      * @param k key event
      */
-    public void keyTyped(KeyEvent k) {}
+    public void keyTyped(KeyEvent k) {
+
+    }
 
     /**
      * listener pre stlacene tlacidla

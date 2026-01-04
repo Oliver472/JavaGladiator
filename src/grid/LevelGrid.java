@@ -1,6 +1,5 @@
 package grid;
 
-
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -12,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-
 
 /**
  * Trieda LevelGrid predstavuje siet stvorcov na ktoru je plocha rozdelena
@@ -64,7 +62,6 @@ public class LevelGrid {
         this.pocetStlpcovNaVykresl = GamePanel.WIDTH / velkostPolicka + 2;
         this.tween = 1;
     }
-
 
     /**
      * @param x poloha X

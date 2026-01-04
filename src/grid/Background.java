@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * @author olivermrovcak
  */
-public class Pozadie {
+public class Background {
 
 
     private BufferedImage img;
@@ -26,12 +26,10 @@ public class Pozadie {
      *
      * @param fileName cesta k png
      */
-    public Pozadie(String fileName) {
+    public Background(String fileName) {
         this.x = 0;
         this.y = 0;
-
         this.init(fileName);
-
     }
 
 
@@ -49,7 +47,6 @@ public class Pozadie {
         }
     }
 
-
     /**
      * Vykresli na platno
      *
@@ -57,9 +54,7 @@ public class Pozadie {
      */
     public void draw(Graphics2D g) {
         g.drawImage(this.img, this.x, this.y, GamePanel.WIDTH, GamePanel.HEIGHT, null);
-
     }
-
 
     /**
      * Update

@@ -1,5 +1,7 @@
 package screens;
 
+import saveManager.LevelEntity;
+import saveManager.SaveManager;
 import java.util.ArrayList;
 
 /**
@@ -9,28 +11,19 @@ public class ScreensManager {
 
     private final ArrayList<Screen> screens;
     private Screen currScreen;
-
+    private SaveManager saveManager;
 
     /**
      * Konstruktor vytovri ArrayList screenov a vytvori vsetky screeny ktore sa budu dat zobrazit
      * nastavi aktualny screen
      */
     public ScreensManager() {
-
-
+        this.saveManager = new SaveManager();
+        this.saveManager.loadGame();
         this.screens = new ArrayList<Screen>();
-
         Screen menuScreen = new MenuScreen(this);
-        Screen level1 = new Level1(this);
-        Screen level2 = new Level2(this);
         this.screens.add(menuScreen);
-        this.screens.add(level1);
-        this.screens.add(level2);
-
-
         this.currScreen = menuScreen;
-
-
     }
 
     /**
@@ -39,7 +32,7 @@ public class ScreensManager {
      * @return screeny
      */
     public ArrayList<Screen> getScreens() {
-        return screens;
+        return this.screens;
     }
 
     /**
@@ -47,15 +40,27 @@ public class ScreensManager {
      *
      * @param screen screen
      */
-    public void nastavScreen(Screen screen) {
+    public void setScreen(Screen screen) {
         try {
             this.currScreen = screen;
             this.currScreen.init();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
+    }
 
+    public void setLoadScreen() {
+        Screen screen = new LoadScreen(this);
+        this.setScreen(screen);
+    }
 
+    public void setLevelScreen(LevelEntity lvl) {
+        Screen screen = new Level(this, lvl.getPathToMapFile());
+        this.setScreen(screen);
+    }
+
+    public SaveManager getSaveManager() {
+        return this.saveManager;
     }
 
     /**

@@ -3,7 +3,8 @@ package screens;
 import enemies.Enemy;
 
 import grid.LevelGrid;
-import grid.Pozadie;
+import grid.Background;
+import main.GamePanel;
 import player.Player;
 
 import javax.imageio.ImageIO;
@@ -16,9 +17,10 @@ import java.io.IOException;
 /**
  * Trieda Level je Predok vsetkych levelov a zaroven potom triedy Screen
  */
-public abstract class Level extends Screen {
+public  class Level extends Screen {
 
-    private Pozadie pozadie;
+    private Background background;
+    private String levelPathName;
     private Player player;
     private LevelGrid grid;
     private int lvl;
@@ -31,11 +33,10 @@ public abstract class Level extends Screen {
     /**
      * Konstruktor priradi Objektu manazera
      */
-    public Level(ScreensManager manager, String pathName, int xMinca, int yMinca) {
+    public Level(ScreensManager manager, String pathName) {
         super(manager);
-        this.xminca = xMinca;
-        this.yminca = yMinca;
-        this.pozadie = new Pozadie(pathName);
+        this.levelPathName = pathName;
+        this.background = new Background("images/bgColloseum2.png");
         this.grid = new LevelGrid(30);
         this.player = new Player(this.grid);
         int mapHeight = this.grid.getHeight();
@@ -47,7 +48,8 @@ public abstract class Level extends Screen {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        init();
+
+        this.init();
     }
 
     /**
@@ -57,8 +59,17 @@ public abstract class Level extends Screen {
     @Override
     public void init() {
         this.loadHeart();
-    }
+        this.getGrid().loadTiles("images/SandTiles.png");
+        this.getGrid().loadMap(this.levelPathName);
+        int mapHeight = this.getGrid().getHeight();
+        this.getPlayer().setX(100);
+        this.getPlayer().setY(mapHeight - 200);
 
+        this.getGrid().setPosition(
+                (double) GamePanel.WIDTH / 2 - this.getPlayer().getX(),
+                (double) GamePanel.HEIGHT / 2 - this.getPlayer().getY()
+        );
+    }
 
     /**
      * Nacitanie obrazku zivota
@@ -70,7 +81,6 @@ public abstract class Level extends Screen {
             e.printStackTrace();
         }
     }
-
 
     /**
      * vrati grid
@@ -103,7 +113,11 @@ public abstract class Level extends Screen {
      */
     @Override
     public void update() {
-
+        this.getPlayer().update();
+        this.getGrid().setPosition(
+                (double) GamePanel.WIDTH / 2 - this.getPlayer().getX(),
+                (double) GamePanel.HEIGHT / 2 - this.getPlayer().getY()
+        );
     }
 
     /**
@@ -113,24 +127,15 @@ public abstract class Level extends Screen {
      */
     @Override
     public void draw(Graphics2D graphics) {
-
-        this.pozadie.draw(graphics);
+        this.background.draw(graphics);
         this.grid.draw(graphics);
         this.player.draw(graphics);
         this.drawPlayerHealth(graphics);
-        this.vratDoLobby();
-
-        this.koliziaHracaAMince();
-        graphics.drawImage(this.minca, this.xminca, this.yminca, 23, 17, null);
-
     }
 
     /**
      * Prepne na dalsi lvl ked je podm. splnena
      */
-    private void dajDalsiLvl() {
-        super.getManager().nastavScreen(super.getManager().getScreens().get(2));
-    }
 
     /**
      * Vykreslenie zivotov hraca
@@ -192,13 +197,11 @@ public abstract class Level extends Screen {
         if (x1Hraca < x2Minca && x2Hraca > x1Minca && y1Hraca < y2Minca && y2Hraca > y1Minca) {
 
             this.zobralMincu = true;
-            this.dajDalsiLvl();
         }
     }
 
     public void vratDoLobby() {
         if (this.player.getHealth() <= 0) {
-            super.getManager().nastavScreen(super.getManager().getScreens().get(0));
             this.player.setFullHealth();
         }
     }
@@ -224,7 +227,7 @@ public abstract class Level extends Screen {
     @Override
     public void keyPressed(int k) {
         if (k == KeyEvent.VK_ESCAPE) {
-            super.getManager().nastavScreen(super.getManager().getScreens().get(0));
+           //ss
         }
 
         this.player.keyPressed(k);

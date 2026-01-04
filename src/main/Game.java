@@ -1,9 +1,8 @@
 package main;
-
 import javax.swing.JFrame;
 
 /**
- * Game vytvara JFrame
+ * Game vytvara JFrame a nacita saveFile
  */
 public class Game {
     public static void main(String[] arguments) {
