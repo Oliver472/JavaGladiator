@@ -39,10 +39,12 @@ public  class Level extends Screen {
         this.background = new Background("images/bgColloseum2.png");
         this.grid = new LevelGrid(30);
         this.player = new Player(this.grid);
+        int mapHeight = this.grid.getHeight();
+        //this.player.setX(100);
+        //this.player.setY(mapHeight );
 
         try {
             this.minca = ImageIO.read(new File("images/coin.png"));
-
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -20,8 +20,6 @@ public class Scout extends Enemy {
     public Scout(int x, int y, LevelGrid tileMap) {
         super(x, y, tileMap);
         super.loadSprites("Scout");
-
-
     }
 
 
@@ -41,11 +39,7 @@ public class Scout extends Enemy {
      */
     @Override
     public void draw(Graphics2D g) {
-
         super.draw(g);
-
         super.move();
-
-
     }
 }

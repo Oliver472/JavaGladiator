@@ -49,7 +49,7 @@ public class Player extends Entity {
     public void keyPressed(int k) {
         if (k == KeyEvent.VK_RIGHT) {
             if (!super.isBlockedRight()) {
-                super.setDx(2);
+                super.setDx(this.walkSpeed);
             }
             if (!super.isHeadingR()) {
                 super.setHeadingR(true);
@@ -59,7 +59,7 @@ public class Player extends Entity {
         }
         if (k == KeyEvent.VK_LEFT) {
             if (!super.isBlockedLeft()) {
-                super.setDx(-2);
+                super.setDx(-this.walkSpeed);
             }
             if (!super.isHeadingL()) {
                 super.setHeadingL(true);
@@ -69,7 +69,7 @@ public class Player extends Entity {
         }
         if (k == KeyEvent.VK_SPACE) {
             if (!super.isJumping() && super.isBlockedBottom()) {
-                super.setySpeed(10);
+                super.setySpeed(-this.jumpUpSpeed);
                 super.setJumping(true);
                 super.setMoving(true);
             }
