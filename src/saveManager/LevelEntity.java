@@ -4,13 +4,14 @@ public class LevelEntity {
 
     private int id;
     private boolean completed;
+    private boolean unlocked;
     private String pathToMapFile;
 
     public LevelEntity() {
 
     }
 
-    public LevelEntity(int id, boolean completed, String pathToMapFile) {
+    public LevelEntity(int id, boolean completed, boolean unlocked, String pathToMapFile) {
         this.id = id;
         this.completed = completed;
         this.pathToMapFile = pathToMapFile;
@@ -28,6 +29,10 @@ public class LevelEntity {
         return this.completed;
     }
 
+    public boolean isUnlocked() {
+        return this.unlocked;
+    }
+
     public void setCompleted() {
         this.completed = true;
     }
@@ -42,6 +47,6 @@ public class LevelEntity {
 
     @Override
     public String toString() {
-        return "Level " + this.id + ": " + (this.completed ? "Hotovo" : "Nedokončené " + this.pathToMapFile);
+        return "Level " + this.id + ": " + (this.completed ? "Hotovo" : "Nedokončené " + (this.unlocked ? "odomknute" : "zamknute") + this.pathToMapFile);
     }
 }

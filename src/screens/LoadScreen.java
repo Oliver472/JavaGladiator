@@ -62,17 +62,17 @@ public class LoadScreen extends Screen {
                 y -= 15;
             }
 
-            this.drawFlag(graphics, x, y, 50, 50, level.isCompleted());
+            this.drawFlag(graphics, x, y, 50, 50, level.isUnlocked());
         }
     }
 
-    private void drawFlag(Graphics2D g, int x, int y, int w, int h, boolean isCompleted) {
+    private void drawFlag(Graphics2D g, int x, int y, int w, int h, boolean isUnlocked) {
         int middleOfFlagWidth = w / 2;
         int middleOfFlagHeight = h / 2;
 
         if (this.flag != null) {
             g.drawImage(this.flag, x, y, w, h, null);
-            if (!isCompleted) {
+            if (!isUnlocked) {
                 g.drawImage(this.lock, x + middleOfFlagWidth - 5, y + middleOfFlagHeight - 3, 10, 13, null);
             }
         }
