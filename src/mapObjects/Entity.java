@@ -32,8 +32,8 @@ public abstract class Entity extends MapObject {
     private BufferedImage img;
 
     private BufferedImage charImg;
-    private int pom;
-    private int timer;
+    protected int pom;
+    protected int timer;
 
     /**
      * @param x       poloha x kde sa ma vykreslit entita
