@@ -6,7 +6,6 @@ import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,12 +28,12 @@ public class MenuScreen extends Screen {
 
     @Override
     public void init() {
-        this.background = new Background("images/bgColloseum2.png");
+        this.background = new Background("/images/bgColloseum2.png");
         try {
-            this.logo = ImageIO.read(new File("images/Gladiator_logo.png"));
+            this.logo = ImageIO.read(getClass().getResource("/images/Gladiator_logo.png"));
             for (MenuOption option : MenuOption.values()) {
-                this.normalImages.put(option, ImageIO.read(new File(option.getNormalPath())));
-                this.pressedImages.put(option, ImageIO.read(new File(option.getPressedPath())));
+                this.normalImages.put(option, ImageIO.read(getClass().getResource(option.getNormalPath())));
+                this.pressedImages.put(option, ImageIO.read(getClass().getResource(option.getPressedPath())));
             }
         } catch (IOException e) {
             System.err.println("Problem with loading menu: " + e.getMessage());

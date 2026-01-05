@@ -7,12 +7,10 @@ import grid.Background;
 import main.GamePanel;
 import player.Player;
 import saveManager.LevelEntity;
-
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -35,7 +33,7 @@ public  class Level extends Screen {
         super(manager);
         this.lvlEntity = lvlEntity;
         this.levelPathName = this.lvlEntity.getPathToMapFile();
-        this.background = new Background("images/bgColloseum2.png");
+        this.background = new Background("/images/bgColloseum2.png");
         this.grid = new LevelGrid(30);
         this.player = new Player(this.grid);
         this.coin = new Coin(100, 1 * 31, this.grid);
@@ -48,15 +46,15 @@ public  class Level extends Screen {
      */
     @Override
     public void init() {
-        this.getGrid().loadTiles("images/SandTiles.png");
+        this.getGrid().loadTiles("/images/SandTiles.png");
         this.getGrid().loadMap(this.levelPathName);
         int mapHeight = this.getGrid().getHeight();
         this.getPlayer().setX(100);
         this.getPlayer().setY(mapHeight - (2 * 31));
 
         this.getGrid().setPosition(
-                (double) GamePanel.WIDTH / 2 - this.getPlayer().getX(),
-                (double) GamePanel.HEIGHT / 2 - this.getPlayer().getY()
+                (double)GamePanel.WIDTH / 2 - this.getPlayer().getX(),
+                (double)GamePanel.HEIGHT / 2 - this.getPlayer().getY()
         );
     }
 
@@ -65,7 +63,7 @@ public  class Level extends Screen {
      */
     public void loadHeart() {
         try {
-            this.heart = ImageIO.read(new File("images/heart.png"));
+            this.heart = ImageIO.read(getClass().getResource("/images/heart.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,8 +101,8 @@ public  class Level extends Screen {
     @Override
     public void update() {
         this.getGrid().setPosition(
-                (double) GamePanel.WIDTH / 2 - this.getPlayer().getX(),
-                (double) GamePanel.HEIGHT / 2 - this.getPlayer().getY()
+                (double)GamePanel.WIDTH / 2 - this.getPlayer().getX(),
+                (double)GamePanel.HEIGHT / 2 - this.getPlayer().getY()
         );
         this.checkCollisionOfPlayerAndCoin();
     }

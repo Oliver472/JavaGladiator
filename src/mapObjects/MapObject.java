@@ -6,7 +6,6 @@ import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -383,7 +382,7 @@ public abstract class MapObject {
      */
     public BufferedImage loadImage(String filePath) {
         try {
-            BufferedImage img = ImageIO.read(new File(filePath));
+            BufferedImage img = ImageIO.read(getClass().getResource(filePath));
             return img;
         } catch (IOException e) {
             e.printStackTrace();

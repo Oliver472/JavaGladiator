@@ -7,9 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 /**
@@ -88,15 +86,15 @@ public class LevelGrid {
      */
     public void loadTiles(String fileName) {
         try {
-            this.tileset = ImageIO.read(new File(fileName));
-            this.numTilesAcross = this.tileset.getWidth() / velkostPolicka;
-            this.policka = new Tile[2][numTilesAcross];
+            this.tileset = ImageIO.read(getClass().getResource(fileName));
+            this.numTilesAcross = this.tileset.getWidth() / this.velkostPolicka;
+            this.policka = new Tile[2][this.numTilesAcross];
 
             BufferedImage subImage;
-            for (int i = 0; i < numTilesAcross; i++) {
-                subImage = tileset.getSubimage(i * this.velkostPolicka, 0, this.velkostPolicka, this.velkostPolicka);
+            for (int i = 0; i < this.numTilesAcross; i++) {
+                subImage = this.tileset.getSubimage(i * this.velkostPolicka, 0, this.velkostPolicka, this.velkostPolicka);
                 this.policka[0][i] = new Tile(subImage, TileType.NORMAL);
-                subImage = tileset.getSubimage(i * this.velkostPolicka, this.velkostPolicka, this.velkostPolicka, this.velkostPolicka);
+                subImage = this.tileset.getSubimage(i * this.velkostPolicka, this.velkostPolicka, this.velkostPolicka, this.velkostPolicka);
                 this.policka[1][i] = new Tile(subImage, TileType.BLOCKED);
 
             }
@@ -113,16 +111,13 @@ public class LevelGrid {
      */
     public void loadMap(String s) {
         try {
-
-            InputStream input = new FileInputStream(s);
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader(input)
-            );
+            InputStream input = getClass().getResourceAsStream(s);
+            BufferedReader br = new BufferedReader(new InputStreamReader(input));
 
             this.pocetStlpcov = Integer.parseInt(br.readLine());
             this.pocetRiadkov = Integer.parseInt(br.readLine());
 
-            this.mapa = new int[pocetRiadkov][pocetStlpcov];
+            this.mapa = new int[this.pocetRiadkov][this.pocetStlpcov];
 
             this.sirka = this.pocetStlpcov * this.velkostPolicka;
             this.vyska = this.pocetRiadkov * this.velkostPolicka;
@@ -142,6 +137,8 @@ public class LevelGrid {
                 }
             }
 
+            br.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -151,35 +148,35 @@ public class LevelGrid {
      * @return velkost policka
      */
     public int getTileSize() {
-        return velkostPolicka;
+        return this.velkostPolicka;
     }
 
     /**
      * @return x x suradnica
      */
     public int getX() {
-        return (int)x;
+        return (int)this.x;
     }
 
     /**
      * @return y y suradnica
      */
     public int getY() {
-        return (int)y;
+        return (int)this.y;
     }
 
     /**
      * @return sirka sirka mapy
      */
     public int getWidth() {
-        return sirka;
+        return this.sirka;
     }
 
     /**
      * @return vyska sirka mapy
      */
     public int getHeight() {
-        return vyska;
+        return this.vyska;
     }
 
     /**
@@ -191,10 +188,10 @@ public class LevelGrid {
      */
     public TileType getType(int riadok, int stlpec) {
         if ((riadok >= 0) && (stlpec >= 0)) {
-            int cr = mapa[riadok][stlpec];
+            int cr = this.mapa[riadok][stlpec];
 
-            int r = cr / numTilesAcross;
-            int c = cr % numTilesAcross;
+            int r = cr / this.numTilesAcross;
+            int c = cr % this.numTilesAcross;
 
             return this.policka[r][c].getType();
         }
@@ -209,8 +206,8 @@ public class LevelGrid {
      * @param y y suradnica
      */
     public void setPosition(double x, double y) {
-        this.x += (x - this.x) * tween;
-        this.y += (y - this.y) * tween;
+        this.x += (x - this.x) * this.tween;
+        this.y += (y - this.y) * this.tween;
 
         this.fixHranice();
 
@@ -275,12 +272,8 @@ public class LevelGrid {
                 int r = rc / this.numTilesAcross;
                 int c = rc % this.numTilesAcross;
 
-                g.drawImage(this.policka[r][c].getImage(), (int)x + j * this.velkostPolicka, (int)y + i * velkostPolicka, null);
-
-
+                g.drawImage(this.policka[r][c].getImage(), (int)this.x + j * this.velkostPolicka, (int)this.y + i * this.velkostPolicka, null);
             }
         }
     }
-
-
 }
