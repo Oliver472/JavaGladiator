@@ -58,7 +58,6 @@ public  class Level extends Screen {
      */
     @Override
     public void init() {
-        this.loadHeart();
         this.getGrid().loadTiles("images/SandTiles.png");
         this.getGrid().loadMap(this.levelPathName);
         int mapHeight = this.getGrid().getHeight();
