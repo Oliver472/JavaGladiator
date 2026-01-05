@@ -3,7 +3,6 @@ package enemies;
 import grid.LevelGrid;
 import mapObjects.Entity;
 
-
 /**
  * Trieda modeluje zakladne metody a atributy pre Enemies.
  *
@@ -19,7 +18,6 @@ public abstract class Enemy extends Entity {
     public Enemy(int x, int y, LevelGrid tileMap) {
         super (x, y, tileMap);
     }
-
 
     /**
      * Meni x suradnicu nepriatela podla x suradnice hraca, priblizuje nepriatela k hracovi
@@ -43,9 +41,5 @@ public abstract class Enemy extends Entity {
             super.setHeadingR(false);
             super.setHeadingL(true);
         }
-
-
     }
-
-
 }

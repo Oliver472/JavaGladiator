@@ -32,8 +32,8 @@ public abstract class Entity extends MapObject {
     private BufferedImage img;
 
     private BufferedImage charImg;
-    private int pom;
-    private int timer;
+    protected int pom;
+    protected int timer;
 
     /**
      * @param x       poloha x kde sa ma vykreslit entita
@@ -86,6 +86,22 @@ public abstract class Entity extends MapObject {
         this.walkSpeed = walkSpeed;
     }
 
+    public BufferedImage getImg() {
+        return this.img;
+    }
+
+    public void setImg(BufferedImage img) {
+        this.img = img;
+    }
+
+    public ArrayList<BufferedImage> getSprites() {
+        return this.sprites;
+    }
+
+    public void setSprites(ArrayList<BufferedImage> sprites) {
+        this.sprites = sprites;
+    }
+
     /**
      * Stara sa o "fyziku" entit
      * posuva entitu smerom dole ked pod nou nie je ziadny BLOCKED tile
@@ -117,6 +133,7 @@ public abstract class Entity extends MapObject {
      *
      * @param nameOfEntity meno entity
      */
+    @Override
     protected void loadSprites(String nameOfEntity) {
         try {
             BufferedImage spriteSheet = ImageIO.read(new File("images/" + nameOfEntity + "-Sprite Sheet.png"));
@@ -170,7 +187,8 @@ public abstract class Entity extends MapObject {
      * @param g tvar
      * @param x index
      */
-    public void changeSprites(Graphics2D g, int x) {
+    @Override
+    protected void changeSprites(Graphics2D g, int x) {
         int mapX = super.getTileMap().getX();
         int mapY = super.getTileMap().getY();
 
@@ -208,4 +226,5 @@ public abstract class Entity extends MapObject {
         }
         this.timer++;
     }
+
 }

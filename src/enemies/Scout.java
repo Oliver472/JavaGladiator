@@ -11,7 +11,6 @@ import java.awt.Graphics2D;
  */
 public class Scout extends Enemy {
 
-
     /**
      * @param x       poloha X na ktorej sa vytvori enemy
      * @param y       poloha Y na ktorej sa vytvori enemy

@@ -2,8 +2,6 @@ package mapObjects;
 
 import grid.LevelGrid;
 import grid.TileType;
-import main.GamePanel;
-
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -78,8 +76,8 @@ public abstract class MapObject {
 
         this.tilesize = tileMap.getTileSize();
 
-        this.sirka = tilesize;
-        this.vyska = tilesize;
+        this.sirka = this.tilesize;
+        this.vyska = this.tilesize;
 
         this.jumping = false;
         this.blockedRight = false;
@@ -88,26 +86,26 @@ public abstract class MapObject {
         this.r1 = new Rectangle(
                 x,
                 y,
-                sirka,
-                vyska);
+                this.sirka,
+                this.vyska);
 
         this.bottomRec = new Rectangle(
                 x,
-                y + vyska,
-                sirka,
-                vyska);
+                y + this.vyska,
+                this.sirka,
+                this.vyska);
 
         this.leftRec = new Rectangle(
-                x - sirka,
+                x - this.sirka,
                 y,
-                sirka,
-                vyska);
+                this.sirka,
+                this.vyska);
 
         this.rightRec = new Rectangle(
-                x + sirka,
+                x + this.sirka,
                 y,
-                sirka,
-                vyska);
+                this.sirka,
+                this.vyska);
 
     }
 
@@ -117,7 +115,7 @@ public abstract class MapObject {
      * @return
      */
     public double getX() {
-        return x;
+        return this.x;
     }
 
 
@@ -127,7 +125,7 @@ public abstract class MapObject {
      * @return Y suradnica
      */
     public double getY() {
-        return y;
+        return this.y;
     }
 
     /**
@@ -136,7 +134,7 @@ public abstract class MapObject {
      * @return sirka
      */
     public int getSirka() {
-        return sirka;
+        return this.sirka;
     }
 
     /**
@@ -145,7 +143,7 @@ public abstract class MapObject {
      * @return vyska
      */
     public int getVyska() {
-        return vyska;
+        return this.vyska;
     }
 
 
@@ -295,28 +293,28 @@ public abstract class MapObject {
      * ak su BLOCKED zastavi pohyb po x alebo y osi
      */
     public void kolizia() {
-        int colOfBottomRec = ((int)x + sirka / 2) / tilesize;
-        int rowOfBottomRec = ((int)y + vyska) / tilesize;
+        int colOfBottomRec = ((int)this.x + this.sirka / 2) / this.tilesize;
+        int rowOfBottomRec = ((int)this.y + this.vyska) / this.tilesize;
 
-        int colOfLeftRec = ((int)x) / tilesize;
-        int rowOfLeftRec = ((int)y) / tilesize;
+        int colOfLeftRec = ((int)this.x) / this.tilesize;
+        int rowOfLeftRec = ((int)this.y) / this.tilesize;
 
-        int colOfRightRec = ((int)x + sirka) / tilesize;
-        int rowOfRightRec = ((int)y) / tilesize;
+        int colOfRightRec = ((int)this.x + this.sirka) / this.tilesize;
+        int rowOfRightRec = ((int)this.y) / this.tilesize;
 
-        int colOfTopRec = ((int)x) / tilesize;
-        int rowOfTopRec = ((int)y) / tilesize;
+        int colOfTopRec = ((int)this.x) / this.tilesize;
+        int rowOfTopRec = ((int)this.y) / this.tilesize;
 
 
         //check ci je pravy rec na urovni blocked tilu
-        if (tileMap.getType(rowOfRightRec, colOfRightRec) == TileType.BLOCKED) {
+        if (this.tileMap.getType(rowOfRightRec, colOfRightRec) == TileType.BLOCKED) {
             this.blockedRight = true;
             this.dx = 0;
         } else {
             this.blockedRight = false;
         }
         //check ci je horny rec na urovni blocked tilu
-        if (tileMap.getType(rowOfTopRec, colOfTopRec) == TileType.BLOCKED) {
+        if (this.tileMap.getType(rowOfTopRec, colOfTopRec) == TileType.BLOCKED) {
             this.blockedUp = true;
             this.dy = 0;
             this.ySpeed = 0;
@@ -325,7 +323,7 @@ public abstract class MapObject {
         }
 
         //check ci je lavy rec na urovni blocked tilu
-        if (tileMap.getType(rowOfLeftRec, colOfLeftRec) == TileType.BLOCKED) {
+        if (this.tileMap.getType(rowOfLeftRec, colOfLeftRec) == TileType.BLOCKED) {
 
             this.blockedLeft = true;
             this.dx = 0;
@@ -334,8 +332,8 @@ public abstract class MapObject {
         }
 
         //check ci je spodny rec na urovni blocked tilu
-        if (tileMap.getType(rowOfBottomRec, colOfBottomRec) == TileType.BLOCKED) {
-            if (!jumping) {
+        if (this.tileMap.getType(rowOfBottomRec, colOfBottomRec) == TileType.BLOCKED) {
+            if (!this.jumping) {
                 this.dy = 0;
             }
 
@@ -343,7 +341,7 @@ public abstract class MapObject {
 
         } else {
             this.blockedBottom = false;
-            if (!jumping) {
+            if (!this.jumping) {
                 this.dy = 4.5;
             }
         }
@@ -371,8 +369,8 @@ public abstract class MapObject {
      * Nastavi poziciu mapy
      */
     public void setMapPosition() {
-        xmap = tileMap.getX();
-        ymap = tileMap.getY();
+        this.xmap = this.tileMap.getX();
+        this.ymap = this.tileMap.getY();
     }
 
 
@@ -422,4 +420,8 @@ public abstract class MapObject {
     public LevelGrid getTileMap() {
         return this.tileMap;
     }
+
+    protected abstract void loadSprites(String nameOfEntity) ;
+
+    protected abstract void changeSprites(Graphics2D g, int x);
 }

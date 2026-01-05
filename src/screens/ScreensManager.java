@@ -61,7 +61,7 @@ public class ScreensManager {
     }
 
     public void setLevelScreen(LevelEntity lvl) {
-        Screen screen = new Level(this, lvl.getPathToMapFile());
+        Screen screen = new Level(this, lvl);
         this.setScreen(screen);
     }
 

@@ -94,12 +94,13 @@ public class Player extends Entity {
         }
     }
 
-
     /**
      * Update
      */
     @Override
-    public void update() {}
+    public void update() {
+
+    }
 
     /**
      * Vykreslenie
