@@ -1,11 +1,12 @@
 package screens;
 
+import collectible.Coin;
 import enemies.Enemy;
-
 import grid.LevelGrid;
 import grid.Background;
 import main.GamePanel;
 import player.Player;
+import saveManager.LevelEntity;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
@@ -19,36 +20,25 @@ import java.io.IOException;
  */
 public  class Level extends Screen {
 
+    private LevelEntity lvlEntity;
     private Background background;
     private String levelPathName;
     private Player player;
     private LevelGrid grid;
-    private int lvl;
     private BufferedImage heart;
-    private BufferedImage minca;
-    private boolean zobralMincu;
-    private int xminca;
-    private int yminca;
+    private Coin coin;
 
     /**
      * Konstruktor priradi Objektu manazera
      */
-    public Level(ScreensManager manager, String pathName) {
+    public Level(ScreensManager manager, LevelEntity lvlEntity) {
         super(manager);
-        this.levelPathName = pathName;
+        this.lvlEntity = lvlEntity;
+        this.levelPathName = this.lvlEntity.getPathToMapFile();
         this.background = new Background("images/bgColloseum2.png");
         this.grid = new LevelGrid(30);
         this.player = new Player(this.grid);
-        int mapHeight = this.grid.getHeight();
-        //this.player.setX(100);
-        //this.player.setY(mapHeight );
-
-        try {
-            this.minca = ImageIO.read(new File("images/coin.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        this.coin = new Coin(100, 1 * 31, this.grid);
         this.init();
     }
 
@@ -62,7 +52,7 @@ public  class Level extends Screen {
         this.getGrid().loadMap(this.levelPathName);
         int mapHeight = this.getGrid().getHeight();
         this.getPlayer().setX(100);
-        this.getPlayer().setY(mapHeight - 200);
+        this.getPlayer().setY(mapHeight - (2 * 31));
 
         this.getGrid().setPosition(
                 (double) GamePanel.WIDTH / 2 - this.getPlayer().getX(),
@@ -112,11 +102,11 @@ public  class Level extends Screen {
      */
     @Override
     public void update() {
-        this.getPlayer().update();
         this.getGrid().setPosition(
                 (double) GamePanel.WIDTH / 2 - this.getPlayer().getX(),
                 (double) GamePanel.HEIGHT / 2 - this.getPlayer().getY()
         );
+        this.checkCollisionOfPlayerAndCoin();
     }
 
     /**
@@ -129,7 +119,7 @@ public  class Level extends Screen {
         this.background.draw(graphics);
         this.grid.draw(graphics);
         this.player.draw(graphics);
-        this.drawPlayerHealth(graphics);
+        this.coin.draw(graphics);
     }
 
     /**
@@ -178,24 +168,29 @@ public  class Level extends Screen {
     /**
      * Kontroluje koliziu hraca a mince
      */
-    public void koliziaHracaAMince() {
+    public void checkCollisionOfPlayerAndCoin() {
 
-        double x1Hraca = this.player.getX();
-        double x2Hraca = this.player.getX() + this.player.getSirka();
+        double x1Player = this.player.getX();
+        double x2Player = this.player.getX() + this.player.getSirka();
 
-        double y1Hraca = this.player.getY();
-        double y2Hraca = this.player.getY() + this.player.getVyska();
+        double y1Player = this.player.getY();
+        double y2Player = this.player.getY() + this.player.getVyska();
 
-        double x1Minca = this.xminca;
-        double x2Minca = this.xminca + this.minca.getWidth();
+        double x1Coin = this.coin.getX();
+        double x2Coin = this.coin.getX() + this.coin.getSirka();
 
-        double y1Minca = this.yminca;
-        double y2Minca = this.yminca + this.minca.getHeight();
+        double y1Coin = this.coin.getY();
+        double y2Coin = this.coin.getY() + this.coin.getVyska();
 
-        if (x1Hraca < x2Minca && x2Hraca > x1Minca && y1Hraca < y2Minca && y2Hraca > y1Minca) {
-
-            this.zobralMincu = true;
+        if (x1Player < x2Coin && x2Player > x1Coin && y1Player < y2Coin && y2Player > y1Coin) {
+            this.finishLevel();
         }
+    }
+
+    public void finishLevel() {
+        this.lvlEntity.setCompleted();
+        super.getManager().getSaveManager().unlockNextLevel(this.lvlEntity);
+        super.getManager().setLoadScreen();
     }
 
     public void vratDoLobby() {
@@ -225,7 +220,7 @@ public  class Level extends Screen {
     @Override
     public void keyPressed(int k) {
         if (k == KeyEvent.VK_ESCAPE) {
-           //ss
+            super.getManager().setMenuScreen();
         }
         this.player.keyPressed(k);
     }
