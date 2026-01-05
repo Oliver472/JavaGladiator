@@ -1,8 +1,6 @@
 package main;
 
-import saveManager.SaveManager;
 import screens.ScreensManager;
-
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics2D;

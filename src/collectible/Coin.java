@@ -1,12 +1,9 @@
 package collectible;
-
 import grid.LevelGrid;
 import mapObjects.Entity;
-
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class Coin extends Entity {
@@ -19,7 +16,7 @@ public class Coin extends Entity {
     @Override
     protected void loadSprites(String nameOfEntity) {
         try {
-            BufferedImage spriteSheet = ImageIO.read(new File("images/" + nameOfEntity + "-Sprite Sheet.png"));
+            BufferedImage spriteSheet = ImageIO.read(getClass().getResource("/images/" + nameOfEntity + "-Sprite Sheet.png"));
             for (int i = 0; i < 4; i++) {
                 super.setImg(spriteSheet.getSubimage(i * 31 , 0, 31, 31));
                 super.getSprites().add(super.getImg());
@@ -45,14 +42,6 @@ public class Coin extends Entity {
 
     @Override
     public void draw(Graphics2D g) {
-        this.changeSprites(g, this.pom);
-
-        if (this.timer % 7 == 0) {
-            this.pom++;
-        }
-        if (this.pom > 3) {
-            this.pom = 0;
-        }
-        this.timer++;
+        super.draw(g);
     }
 }

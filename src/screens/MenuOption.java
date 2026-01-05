@@ -1,10 +1,10 @@
 package screens;
 
 public enum MenuOption {
-    NEW_GAME("images/newGameBtn.png", "images/newGameBtnPressed.png"),
-    LOAD_SAVE("images/loadGameBtn.png", "images/loadGameBtnPressed.png"),
-    OPTIONS("images/optionsBtn.png", "images/optionsBtnPressed.png"),
-    QUIT("images/exitBtn.png", "images/exitBtnPressed.png");
+    NEW_GAME("/images/newGameBtn.png", "/images/newGameBtnPressed.png"),
+    LOAD_SAVE("/images/loadGameBtn.png", "/images/loadGameBtnPressed.png"),
+    OPTIONS("/images/optionsBtn.png", "/images/optionsBtnPressed.png"),
+    QUIT("/images/exitBtn.png", "/images/exitBtnPressed.png");
 
     private final String normalPath;
     private final String pressedPath;

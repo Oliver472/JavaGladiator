@@ -1,11 +1,9 @@
 package grid;
 
 import main.GamePanel;
-
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -41,7 +39,7 @@ public class Background {
     private void init(String fileName) {
         this.img = null;
         try {
-            this.img = ImageIO.read(new File(fileName));
+            this.img = ImageIO.read(getClass().getResource(fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }

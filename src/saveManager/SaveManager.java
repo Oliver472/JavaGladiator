@@ -1,15 +1,17 @@
 package saveManager;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class SaveManager {
-    private static final String FILE_NAME = "./saveGame/saveFile.dat";
+    // Cesta musí začínať lomítkom, ak je v root priečinku resources
+    private static final String FILE_NAME = "/saveGame/saveFile.dat";
     private ArrayList<LevelEntity> levels;
 
     public SaveManager() {
@@ -17,12 +19,15 @@ public class SaveManager {
     }
 
     public void loadSave() {
-        File file = new File(FILE_NAME);
+        // 1. Získame InputStream z classpath (z resources)
+        InputStream inputStream = getClass().getResourceAsStream(FILE_NAME);
 
-        if (file.exists()) {
-            try (FileReader reader = new FileReader(file)) {
+        if (inputStream != null) {
+            // 2. Obalíme InputStream do Readeru, aby tomu GSON rozumel
+            try (Reader reader = new InputStreamReader(inputStream)) {
+
                 Gson gson = new Gson();
-                Type listType = new TypeToken<ArrayList<LevelEntity>>(){}.getType();
+                Type listType = new TypeToken<ArrayList<LevelEntity>>() { }.getType();
                 this.levels = gson.fromJson(reader, listType);
 
                 if (this.levels != null) {
@@ -37,25 +42,12 @@ public class SaveManager {
                 System.out.println("Problem with loading");
             }
         } else {
-            System.out.println("File does not exist");
+            // Ak getResourceAsStream vráti null, súbor sa nenašiel (napr. zlá cesta)
+            System.out.println("File does not exist inside resources: " + FILE_NAME);
         }
     }
 
-    public void saveGame() {
-        File file = new File(FILE_NAME);
-        if (file.getParentFile() != null) {
-            file.getParentFile().mkdirs();
-        }
-
-        try (FileWriter writer = new FileWriter(file)) {
-            Gson gson = new Gson();
-            gson.toJson(this.levels, writer);
-            System.out.println("Game saved successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Problem with saving");
-        }
-    }
+    // ... zvyšok tvojho kódu (getLevels, getLevelById, atď.) ostáva rovnaký
 
     public ArrayList<LevelEntity> getLevels() {
         return this.levels;
@@ -69,29 +61,37 @@ public class SaveManager {
                 }
             }
         }
-
         return null;
     }
 
     public void eraseSave() {
-        for (LevelEntity level : this.levels) {
-            level.setNotCompleted();
-            level.setLocked();
+        if (this.levels != null && !this.levels.isEmpty()) {
+            for (LevelEntity level : this.levels) {
+                level.setNotCompleted();
+                level.setLocked();
+            }
+            this.levels.get(0).setUnlocked();
+            // this.saveGame();
         }
-        this.levels.get(0).setUnlocked();
-        this.saveGame();
     }
 
     public LevelEntity getFirstLevel() {
-        return this.levels.get(0);
+        if (this.levels != null && !this.levels.isEmpty()) {
+            return this.levels.get(0);
+        }
+        return null;
     }
 
     public void unlockNextLevel(LevelEntity level) {
+        if (this.levels == null) {
+            return;
+        }
+
         int currentIndex = this.levels.indexOf(level);
         if (currentIndex != -1 && currentIndex < (this.levels.size() - 1)) {
             LevelEntity nextLevel = this.levels.get(currentIndex + 1);
             nextLevel.setUnlocked();
-            this.saveGame();
+            // this.saveGame();
         }
     }
 }

@@ -4,9 +4,8 @@ import grid.Background;
 import main.GamePanel;
 import saveManager.LevelEntity;
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -29,9 +28,9 @@ public class LoadScreen extends Screen {
     @Override
     public void init() {
         try {
-            this.background = new Background("images/bgLoadLevels.png");
-            this.flag = ImageIO.read(new File("images/flag.png"));
-            this.lock = ImageIO.read(new File("images/lock.png"));
+            this.background = new Background("/images/bgLoadLevels.png");
+            this.flag = ImageIO.read(getClass().getResource("/images/flag.png"));
+            this.lock = ImageIO.read(getClass().getResource("/images/lock.png"));
         } catch (IOException e) {
             System.err.println("Problem with screen: " + e.getMessage());
         }

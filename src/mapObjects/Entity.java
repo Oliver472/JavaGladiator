@@ -1,11 +1,9 @@
 package mapObjects;
 
 import grid.LevelGrid;
-
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -28,12 +26,10 @@ public abstract class Entity extends MapObject {
     private ArrayList<BufferedImage> spritesReversed;
     private ArrayList<BufferedImage> spritesStand;
     private ArrayList<BufferedImage> spritesStandReversed;
-
     private BufferedImage img;
 
-    private BufferedImage charImg;
-    protected int pom;
-    protected int timer;
+    private int pom;
+    private int timer;
 
     /**
      * @param x       poloha x kde sa ma vykreslit entita
@@ -102,6 +98,22 @@ public abstract class Entity extends MapObject {
         this.sprites = sprites;
     }
 
+    public int getPom() {
+        return this.pom;
+    }
+
+    public void setPom(int pom) {
+        this.pom = pom;
+    }
+
+    public int getTimer() {
+        return this.timer;
+    }
+
+    public void setTimer(int timer) {
+        this.timer = timer;
+    }
+
     /**
      * Stara sa o "fyziku" entit
      * posuva entitu smerom dole ked pod nou nie je ziadny BLOCKED tile
@@ -136,7 +148,7 @@ public abstract class Entity extends MapObject {
     @Override
     protected void loadSprites(String nameOfEntity) {
         try {
-            BufferedImage spriteSheet = ImageIO.read(new File("images/" + nameOfEntity + "-Sprite Sheet.png"));
+            BufferedImage spriteSheet = ImageIO.read(getClass().getResource("/images/" + nameOfEntity + "-Sprite Sheet.png"));
             for (int i = 0; i < 4; i++) {
                 this.img = spriteSheet.getSubimage(i * 31 + i, 31, 31, super.getVyska());
                 this.sprites.add(this.img);
@@ -147,7 +159,7 @@ public abstract class Entity extends MapObject {
         }
 
         try {
-            BufferedImage spriteSheetRev = ImageIO.read(new File("images/" + nameOfEntity + "-Sprite SheetReversed.png"));
+            BufferedImage spriteSheetRev = ImageIO.read(getClass().getResource("/images/" + nameOfEntity + "-Sprite SheetReversed.png"));
             for (int i = 1; i < 5; i++) {
                 this.img = spriteSheetRev.getSubimage(spriteSheetRev.getWidth() - (i * 31 + i), 31, 31, super.getSirka());
                 this.spritesReversed.add(this.img);
@@ -158,7 +170,7 @@ public abstract class Entity extends MapObject {
         }
 
         try {
-            BufferedImage spriteSheet = ImageIO.read(new File("images/" + nameOfEntity + "-Sprite Sheet.png"));
+            BufferedImage spriteSheet = ImageIO.read(getClass().getResource("/images/" + nameOfEntity + "-Sprite Sheet.png"));
             for (int i = 0; i < 4; i++) {
                 this.img = spriteSheet.getSubimage(i * 31 + i, 0, 31, super.getVyska());
                 this.spritesStand.add(this.img);
@@ -169,7 +181,7 @@ public abstract class Entity extends MapObject {
         }
 
         try {
-            BufferedImage spriteSheetRev = ImageIO.read(new File("images/" + nameOfEntity + "-Sprite SheetReversed.png"));
+            BufferedImage spriteSheetRev = ImageIO.read(getClass().getResource("/images/" + nameOfEntity + "-Sprite SheetReversed.png"));
             for (int i = 1; i < 5; i++) {
                 this.img = spriteSheetRev.getSubimage(spriteSheetRev.getWidth() - (i * 31 + i), 0, 31, super.getVyska());
                 this.spritesStandReversed.add(this.img);
