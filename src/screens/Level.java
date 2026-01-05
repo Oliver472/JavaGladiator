@@ -193,12 +193,6 @@ public  class Level extends Screen {
         super.getManager().setLoadScreen();
     }
 
-    public void vratDoLobby() {
-        if (this.player.getHealth() <= 0) {
-            this.player.setFullHealth();
-        }
-    }
-
     /**
      * Rekcia na pustenie tlacidla
      * Posiela spravu hracovi
