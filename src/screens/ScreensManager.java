@@ -2,6 +2,7 @@ package screens;
 
 import saveManager.LevelEntity;
 import saveManager.SaveManager;
+
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,7 @@ public class ScreensManager {
      */
     public ScreensManager() {
         this.saveManager = new SaveManager();
-        this.saveManager.loadGame();
+        this.saveManager.loadSave();
         this.screens = new ArrayList<Screen>();
         Screen menuScreen = new MenuScreen(this);
         this.screens.add(menuScreen);
@@ -49,6 +50,11 @@ public class ScreensManager {
         }
     }
 
+    public void setMenuScreen() {
+        Screen screen = new MenuScreen(this);
+        this.setScreen(screen);
+    }
+
     public void setLoadScreen() {
         Screen screen = new LoadScreen(this);
         this.setScreen(screen);
@@ -57,6 +63,12 @@ public class ScreensManager {
     public void setLevelScreen(LevelEntity lvl) {
         Screen screen = new Level(this, lvl.getPathToMapFile());
         this.setScreen(screen);
+    }
+
+    public void setNewGame() {
+        this.saveManager.eraseSave();
+        LevelEntity levelToLoad = this.saveManager.getFirstLevel();
+        this.setLevelScreen(levelToLoad);
     }
 
     public SaveManager getSaveManager() {

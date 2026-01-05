@@ -33,6 +33,14 @@ public class LevelEntity {
         return this.unlocked;
     }
 
+    public void setLocked() {
+        this.unlocked = false;
+    }
+
+    public void setUnlocked() {
+        this.unlocked = true;
+    }
+
     public void setCompleted() {
         this.completed = true;
     }

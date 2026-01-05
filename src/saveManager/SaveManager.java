@@ -3,6 +3,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class SaveManager {
         this.levels = new ArrayList<>();
     }
 
-    public void loadGame() {
+    public void loadSave() {
         File file = new File(FILE_NAME);
 
         if (file.exists()) {
@@ -40,6 +41,22 @@ public class SaveManager {
         }
     }
 
+    public void saveGame() {
+        File file = new File(FILE_NAME);
+        if (file.getParentFile() != null) {
+            file.getParentFile().mkdirs();
+        }
+
+        try (FileWriter writer = new FileWriter(file)) {
+            Gson gson = new Gson();
+            gson.toJson(this.levels, writer);
+            System.out.println("Game saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Problem with saving");
+        }
+    }
+
     public ArrayList<LevelEntity> getLevels() {
         return this.levels;
     }
@@ -54,5 +71,27 @@ public class SaveManager {
         }
 
         return null;
+    }
+
+    public void eraseSave() {
+        for (LevelEntity level : this.levels) {
+            level.setNotCompleted();
+            level.setLocked();
+        }
+        this.levels.get(0).setUnlocked();
+        this.saveGame();
+    }
+
+    public LevelEntity getFirstLevel() {
+        return this.levels.get(0);
+    }
+
+    public void unlockNextLevel(LevelEntity level) {
+        int currentIndex = this.levels.indexOf(level);
+        if (currentIndex != -1 && currentIndex < (this.levels.size() - 1)) {
+            LevelEntity nextLevel = this.levels.get(currentIndex + 1);
+            nextLevel.setUnlocked();
+            this.saveGame();
+        }
     }
 }

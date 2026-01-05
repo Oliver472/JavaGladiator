@@ -105,6 +105,9 @@ public class LoadScreen extends Screen {
         if (k == 10) {
             this.chooseLevel();
         }
+        if (k == 27) {
+            super.getManager().setMenuScreen();
+        }
     }
 
     @Override

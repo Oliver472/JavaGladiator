@@ -16,14 +16,14 @@ public class MenuScreen extends Screen {
     private Background background;
     private BufferedImage logo;
     private MenuOption currentOption;
-    private static final int BUTTON_MARGIN = 28;
+    private static final int BUTTON_MARGIN = 40;
 
     private final Map<MenuOption, BufferedImage> normalImages = new HashMap<>();
     private final Map<MenuOption, BufferedImage> pressedImages = new HashMap<>();
 
     public MenuScreen(ScreensManager manager) {
         super(manager);
-        this.currentOption = MenuOption.PLAY;
+        this.currentOption = MenuOption.NEW_GAME;
         this.init();
     }
 
@@ -55,7 +55,7 @@ public class MenuScreen extends Screen {
         int i = 0;
         for (MenuOption option : MenuOption.values()) {
             BufferedImage toDraw = (option == this.currentOption) ? this.pressedImages.get(option) : this.normalImages.get(option);
-            graphics.drawImage(toDraw, 215, 140 + i * BUTTON_MARGIN, 50, 25, null);
+            graphics.drawImage(toDraw, 180, 70 + i * BUTTON_MARGIN, 90, 35, null);
             i++;
         }
     }
@@ -75,8 +75,8 @@ public class MenuScreen extends Screen {
 
     private void executeSelection() {
         switch (this.currentOption) {
-            case PLAY:
-                //super.getManager().nastavScreen(super.getManager().getScreens().get(1));
+            case NEW_GAME:
+                super.getManager().setNewGame();
                 break;
             case LOAD_SAVE:
                 super.getManager().setLoadScreen();

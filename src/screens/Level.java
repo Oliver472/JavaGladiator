@@ -173,7 +173,6 @@ public  class Level extends Screen {
                 this.player.setHealth(1);
                 this.player.setInvcTime(10);
             }
-
         }
     }
 
@@ -229,8 +228,6 @@ public  class Level extends Screen {
         if (k == KeyEvent.VK_ESCAPE) {
            //ss
         }
-
         this.player.keyPressed(k);
-
     }
 }
