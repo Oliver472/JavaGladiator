@@ -19,10 +19,10 @@ public abstract class Entity extends MapObject {
     public static final double DEFAULT_JUMP_FALL_SPEED = 8.0;
     public static final double DEFAULT_JUMP_FUEL_CONSUMPTION = 0.65;
 
-    protected double walkSpeed;
-    protected double jumpUpSpeed;
-    protected double jumpFallSpeed;
-    protected double jumpFuelConsumption;
+    private double walkSpeed;
+    private double jumpUpSpeed;
+    private double jumpFallSpeed;
+    private double jumpFuelConsumption;
 
     private ArrayList<BufferedImage> sprites;
     private ArrayList<BufferedImage> spritesReversed;
@@ -52,6 +52,38 @@ public abstract class Entity extends MapObject {
         this.spritesReversed = new ArrayList<BufferedImage>();
         this.spritesStand = new ArrayList<BufferedImage>();
         this.spritesStandReversed = new ArrayList<BufferedImage>();
+    }
+
+    public double getJumpUpSpeed() {
+        return this.jumpUpSpeed;
+    }
+
+    public void setJumpUpSpeed(double jumpUpSpeed) {
+        this.jumpUpSpeed = jumpUpSpeed;
+    }
+
+    public double getJumpFallSpeed() {
+        return this.jumpFallSpeed;
+    }
+
+    public void setJumpFallSpeed(double jumpFallSpeed) {
+        this.jumpFallSpeed = jumpFallSpeed;
+    }
+
+    public double getJumpFuelConsumption() {
+        return this.jumpFuelConsumption;
+    }
+
+    public void setJumpFuelConsumption(double jumpFuelConsumption) {
+        this.jumpFuelConsumption = jumpFuelConsumption;
+    }
+
+    public double getWalkSpeed() {
+        return this.walkSpeed;
+    }
+
+    public void setWalkSpeed(double walkSpeed) {
+        this.walkSpeed = walkSpeed;
     }
 
     /**
@@ -157,7 +189,6 @@ public abstract class Entity extends MapObject {
         }
     }
 
-
     /**
      * Vykreslenie
      *
@@ -176,9 +207,5 @@ public abstract class Entity extends MapObject {
             this.pom = 0;
         }
         this.timer++;
-
-
     }
-
-
 }

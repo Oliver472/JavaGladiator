@@ -36,7 +36,7 @@ public class Player extends Entity {
      * @return health
      */
     public int getHealth() {
-        return health;
+        return this.health;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Player extends Entity {
     public void keyPressed(int k) {
         if (k == KeyEvent.VK_RIGHT) {
             if (!super.isBlockedRight()) {
-                super.setDx(this.walkSpeed);
+                super.setDx(this.getWalkSpeed());
             }
             if (!super.isHeadingR()) {
                 super.setHeadingR(true);
@@ -59,7 +59,7 @@ public class Player extends Entity {
         }
         if (k == KeyEvent.VK_LEFT) {
             if (!super.isBlockedLeft()) {
-                super.setDx(-this.walkSpeed);
+                super.setDx(-this.getWalkSpeed());
             }
             if (!super.isHeadingL()) {
                 super.setHeadingL(true);
@@ -69,7 +69,7 @@ public class Player extends Entity {
         }
         if (k == KeyEvent.VK_SPACE) {
             if (!super.isJumping() && super.isBlockedBottom()) {
-                super.setySpeed(-this.jumpUpSpeed);
+                super.setySpeed(-this.getJumpUpSpeed());
                 super.setJumping(true);
                 super.setMoving(true);
             }
@@ -109,13 +109,9 @@ public class Player extends Entity {
      */
     @Override
     public void draw(Graphics2D g) {
-
         super.move();
-
         setMapPosition();
-
         super.draw(g);
-
         this.changeSprites(g, this.pom);
 
         if (this.timer % 5 == 0) {
@@ -150,7 +146,6 @@ public class Player extends Entity {
         if (this.invcTime == 0) {
             this.health -= x;
         }
-
     }
 
     /**
