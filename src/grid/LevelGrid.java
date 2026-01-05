@@ -103,7 +103,6 @@ public class LevelGrid {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -141,13 +140,11 @@ public class LevelGrid {
                 for (int j = 0; j < this.pocetStlpcov; j++) {
                     this.mapa[i][j] = Integer.parseInt(tokens[j]);
                 }
-
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     /**
