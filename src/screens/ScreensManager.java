@@ -2,6 +2,7 @@ package screens;
 
 import saveManager.LevelEntity;
 import saveManager.SaveManager;
+
 import java.util.ArrayList;
 
 /**
@@ -47,6 +48,11 @@ public class ScreensManager {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setMenuScreen() {
+        Screen screen = new MenuScreen(this);
+        this.setScreen(screen);
     }
 
     public void setLoadScreen() {
