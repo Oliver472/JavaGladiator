@@ -213,8 +213,6 @@ public class LevelGrid {
 
         this.stlpecOffset = (int)-this.x / this.velkostPolicka;
         this.riadokOffset = (int)-this.y / this.velkostPolicka;
-
-
     }
 
     /**
@@ -235,7 +233,6 @@ public class LevelGrid {
         if (this.y > this.ymax) {
             this.y = this.ymax;
         }
-
     }
 
 

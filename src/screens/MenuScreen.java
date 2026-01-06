@@ -1,7 +1,6 @@
 package screens;
 
 import grid.Background;
-
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -10,6 +9,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Hlavna obrazovka menu hry s vyberom moznosti
+ */
 public class MenuScreen extends Screen {
 
     private Background background;
@@ -20,12 +22,20 @@ public class MenuScreen extends Screen {
     private final Map<MenuOption, BufferedImage> normalImages = new HashMap<>();
     private final Map<MenuOption, BufferedImage> pressedImages = new HashMap<>();
 
+    /**
+     * Konstruktor nastavi manazera obrazoviek a inicializuje aktualne vybranu moznost na New Game
+     *
+     * @param manager manazer obrazoviek
+     */
     public MenuScreen(ScreensManager manager) {
         super(manager);
         this.currentOption = MenuOption.NEW_GAME;
         this.init();
     }
 
+    /**
+     * Inicializuje pozadie, logo a nacita obrazky pre vsetky tlacidla menu
+     */
     @Override
     public void init() {
         this.background = new Background("/images/bgColloseum2.png");
@@ -40,11 +50,19 @@ public class MenuScreen extends Screen {
         }
     }
 
+    /**
+     * Aktualizuje pozadie
+     */
     @Override
     public void update() {
         this.background.update();
     }
 
+    /**
+     * Vykresli pozadie, logo a vsetky tlacidla menu
+     *
+     * @param graphics tvar
+     */
     @Override
     public void draw(Graphics2D graphics) {
         this.background.draw(graphics);
@@ -59,6 +77,11 @@ public class MenuScreen extends Screen {
         }
     }
 
+    /**
+     * Spracuje stlacenie klaves
+     *
+     * @param k kod stlaceneho klavesu
+     */
     @Override
     public void keyPressed(int k) {
         if (k == KeyEvent.VK_DOWN) {
@@ -72,6 +95,9 @@ public class MenuScreen extends Screen {
         }
     }
 
+    /**
+     * Vykona akciu podla aktualne vybraneho tlacidla menu
+     */
     private void executeSelection() {
         switch (this.currentOption) {
             case NEW_GAME:
@@ -89,6 +115,11 @@ public class MenuScreen extends Screen {
         }
     }
 
+    /**
+     * Spracuje pustenie klavesu
+     *
+     * @param k kod pusteného klavesu
+     */
     @Override
     public void keyReleased(int k) {
     }

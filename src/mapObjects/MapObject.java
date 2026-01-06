@@ -291,7 +291,7 @@ public abstract class MapObject {
      * s tilami na mape ktore su typu BLOCKED
      * ak su BLOCKED zastavi pohyb po x alebo y osi
      */
-    public void kolizia() {
+    public void collision() {
         int colOfBottomRec = ((int)this.x + this.sirka / 2) / this.tilesize;
         int rowOfBottomRec = ((int)this.y + this.vyska) / this.tilesize;
 
@@ -411,16 +411,35 @@ public abstract class MapObject {
             //lavy rec podla neho sa urcuje schopnost r1 posuvat dolava
             g.draw(this.rightRec);
 
-            //spodny rec -||- nizsie
+            //spodny rec
             g.draw(this.bottomRec);
         }
     }
+
+    /**
+     * Vrati tileMapu
+     *
+     */
 
     public LevelGrid getTileMap() {
         return this.tileMap;
     }
 
+    /**
+     * Nacita sprites pre mapObject
+     *
+     * @param nameOfEntity nazov entity
+     */
+
     protected abstract void loadSprites(String nameOfEntity) ;
+
+    /**
+     * Meni sprites
+     *
+     * @param g tvar
+     * @param x index spritu
+     *
+     */
 
     protected abstract void changeSprites(Graphics2D g, int x);
 }

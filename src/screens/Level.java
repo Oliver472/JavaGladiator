@@ -108,7 +108,7 @@ public  class Level extends Screen {
     }
 
     /**
-     * vykreslenie pozadia, siete stvorcov, hraca a zivotov hraca
+     * vykreslenie pozadia, siete stvorcov, hraca
      *
      * @param graphics tvar
      */

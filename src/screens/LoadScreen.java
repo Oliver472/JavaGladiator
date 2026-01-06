@@ -9,6 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Obrazovka na vyber a nacitanie levelov (Load Screen)
+ */
 public class LoadScreen extends Screen {
 
     private Background background;
@@ -19,12 +22,20 @@ public class LoadScreen extends Screen {
     private int focusedIndex = 0;
     public static final int MARGIN = 60;
 
+    /**
+     * Konstruktor nastavi manazera obrazoviek a nacita zoznam levelov zo save systemu
+     *
+     * @param manager manazer obrazoviek
+     */
     public LoadScreen(ScreensManager manager) {
         super(manager);
         this.levels = super.getManager().getSaveManager().getLevels();
         this.init();
     }
 
+    /**
+     * Inicializuje pozadie a nacita obrazky pre vlajky a zamok
+     */
     @Override
     public void init() {
         try {
@@ -36,11 +47,19 @@ public class LoadScreen extends Screen {
         }
     }
 
+    /**
+     * Update
+     */
     @Override
     public void update() {
 
     }
 
+    /**
+     * Vykresli pozadie a riadok vlajok reprezentujucich levely
+     *
+     * @param graphics graficky kontext
+     */
     @Override
     public void draw(Graphics2D graphics) {
         this.background.draw(graphics);
@@ -65,6 +84,16 @@ public class LoadScreen extends Screen {
         }
     }
 
+    /**
+     * Vykresli vlajku levelu, pri zamknutom leveli pridá obrazok zamku
+     *
+     * @param g          graficky kontext
+     * @param x          x-ova suradnica
+     * @param y          y-ova suradnica
+     * @param w          sirka vlajky
+     * @param h          vyska vlajky
+     * @param isUnlocked ci je level odomknuty
+     */
     private void drawFlag(Graphics2D g, int x, int y, int w, int h, boolean isUnlocked) {
         int middleOfFlagWidth = w / 2;
         int middleOfFlagHeight = h / 2;
@@ -77,6 +106,9 @@ public class LoadScreen extends Screen {
         }
     }
 
+    /**
+     * Spusti vybrany level ak je odomknuty, inak vypise informaciu o zamknuti
+     */
     private void chooseLevel() {
         LevelEntity selectedLevel = this.levels.get(this.focusedIndex);
         if (selectedLevel.isUnlocked()) {
@@ -87,28 +119,38 @@ public class LoadScreen extends Screen {
         }
     }
 
+    /**
+     * Spracuje stlacenie klaves, pohyb medzi levelmi, vyber a navrat do menu
+     *
+     * @param k kod stlaceneho klavesu
+     */
     @Override
     public void keyPressed(int k) {
-        if (k == 39) {
+        if (k == 39) { // sipka doprava
             this.focusedIndex++;
             if (this.focusedIndex >= this.levels.size()) {
                 this.focusedIndex = 0;
             }
         }
-        if (k == 37) {
+        if (k == 37) { // sipka dolava
             this.focusedIndex--;
             if (this.focusedIndex < 0) {
                 this.focusedIndex = this.levels.size() - 1;
             }
         }
-        if (k == 10) {
+        if (k == 10) { // Enter
             this.chooseLevel();
         }
-        if (k == 27) {
+        if (k == 27) { // Escape
             super.getManager().setMenuScreen();
         }
     }
 
+    /**
+     * Spracuje pustenie klavesu
+     *
+     * @param k kod pusteného klavesu
+     */
     @Override
     public void keyReleased(int k) {
 

@@ -2,7 +2,7 @@ package main;
 import javax.swing.JFrame;
 
 /**
- * Game vytvara JFrame a nacita saveFile
+ * Game vytvara JFrame
  */
 public class Game {
     public static void main(String[] arguments) {
