@@ -136,7 +136,7 @@ public abstract class Entity extends MapObject {
 
         super.setX(super.getX() + super.getDx());
         super.setY(super.getY() + super.getDy());
-        this.kolizia();
+        this.collision();
     }
 
 

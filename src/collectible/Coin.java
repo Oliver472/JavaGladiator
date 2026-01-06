@@ -6,12 +6,30 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * Trieda coin je entita ktoru hrac musi zobrat (prejst cez nu) aby ukoncil level
+ */
+
 public class Coin extends Entity {
+
+    /**
+     * nastavi zakladne parametre, nacita sprites
+     *
+     * @param x suradnica x kde sa ma coin vykreslit
+     * @param y suradnica y kde sa ma coin vykreslit
+     * @param tileMap siet tilov
+     */
 
     public Coin(int x, int y, LevelGrid tileMap) {
         super(x, y, tileMap);
         this.loadSprites("Coin");
     }
+
+    /**
+     * Nacita sprite sheet
+     *
+     * @param nameOfEntity nazov entity podla ktoreho sa nacita zo suboru
+     */
 
     @Override
     protected void loadSprites(String nameOfEntity) {
@@ -27,6 +45,13 @@ public class Coin extends Entity {
         }
     }
 
+    /**
+     * Nacita sprite sheet
+     *
+     * @param g tvar
+     * @param x index spritu
+     */
+
     @Override
     protected void changeSprites(Graphics2D g, int x) {
         int mapX = super.getTileMap().getX();
@@ -35,10 +60,19 @@ public class Coin extends Entity {
         g.drawImage(this.getSprites().get(x), (int)super.getX() + mapX, (int)super.getY() + mapY, super.getSirka(), super.getVyska(), null);
     }
 
+    /**
+     * Update obrazovky
+     *
+     */
+
     @Override
     public void update() {
 
     }
+
+    /**
+     * Vykreslenie
+     */
 
     @Override
     public void draw(Graphics2D g) {

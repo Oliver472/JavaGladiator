@@ -9,21 +9,26 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Trieda na spravu ukladania a nacitavania postupu hry
+ */
 public class SaveManager {
-    // Cesta musí začínať lomítkom, ak je v root priečinku resources
     private static final String FILE_NAME = "/saveGame/saveFile.dat";
     private ArrayList<LevelEntity> levels;
 
+    /**
+     * Konstruktor inicializuje prazdny zoznam levelov
+     */
     public SaveManager() {
         this.levels = new ArrayList<>();
     }
 
+    /**
+     * Nacita save subor z resources a deserializuje ho do zoznamu levelov
+     */
     public void loadSave() {
-        // 1. Získame InputStream z classpath (z resources)
         InputStream inputStream = getClass().getResourceAsStream(FILE_NAME);
-
         if (inputStream != null) {
-            // 2. Obalíme InputStream do Readeru, aby tomu GSON rozumel
             try (Reader reader = new InputStreamReader(inputStream)) {
 
                 Gson gson = new Gson();
@@ -42,17 +47,25 @@ public class SaveManager {
                 System.out.println("Problem with loading");
             }
         } else {
-            // Ak getResourceAsStream vráti null, súbor sa nenašiel (napr. zlá cesta)
             System.out.println("File does not exist inside resources: " + FILE_NAME);
         }
     }
 
-    // ... zvyšok tvojho kódu (getLevels, getLevelById, atď.) ostáva rovnaký
-
+    /**
+     * Vrati zoznam vsetkych levelov
+     *
+     * @return zoznam levelov
+     */
     public ArrayList<LevelEntity> getLevels() {
         return this.levels;
     }
 
+    /**
+     * Vrati level podla jeho ID
+     *
+     * @param id identifikacne cislo levelu
+     * @return najdeny level alebo null ak neexistuje
+     */
     public LevelEntity getLevelById(int id) {
         if (this.levels != null) {
             for (LevelEntity level : this.levels) {
@@ -64,6 +77,9 @@ public class SaveManager {
         return null;
     }
 
+    /**
+     * Vymaze postup, zamkne vsetky levely okrem prveho a oznací vsetky ako nedokoncene
+     */
     public void eraseSave() {
         if (this.levels != null && !this.levels.isEmpty()) {
             for (LevelEntity level : this.levels) {
@@ -75,6 +91,11 @@ public class SaveManager {
         }
     }
 
+    /**
+     * Vrati prvy level v zozname
+     *
+     * @return prvy level alebo null ak zoznam prazdny
+     */
     public LevelEntity getFirstLevel() {
         if (this.levels != null && !this.levels.isEmpty()) {
             return this.levels.get(0);
@@ -82,6 +103,11 @@ public class SaveManager {
         return null;
     }
 
+    /**
+     * Po dokonceni aktualneho levelu odomkne nasledujuci level
+     *
+     * @param level dokonceny level
+     */
     public void unlockNextLevel(LevelEntity level) {
         if (this.levels == null) {
             return;

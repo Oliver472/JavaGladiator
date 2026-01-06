@@ -13,11 +13,9 @@ import java.io.IOException;
  */
 public class Background {
 
-
     private BufferedImage img;
     private final int x;
     private final int y;
-
 
     /**
      * nastavi x a y na 0 teda do laveho horneho rohu
